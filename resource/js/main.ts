@@ -39,7 +39,7 @@ abstract class DomObject {
         }
     }
 
-    addEventer( selector: string, eventName: string, eventFunction: () => any ) {
+    addEventer( selector: string, eventName: string, eventFunction: (e: any) => any ) {
         document.querySelector( selector )!.addEventListener( eventName, eventFunction );
     }
 }

@@ -8,7 +8,7 @@ class Aside extends DomObject {
             <div class="asideWrap" id="asideWrap">
                 <div class="searchWrap">
                     <i class="xi-search"></i>
-                    <input class="searchInput" />
+                    <input class="searchInput" id="searchInput" />
                 </div>
                 <section class="sideBar" id="sideBar">
                 </section>
@@ -54,6 +54,8 @@ class Aside extends DomObject {
                 width: 160px;
                 line-height: 35px;
                 margin-left: 5px;
+                outline: none !important;
+                box-shadow: none !important;
             }
 
             .sideBar {
@@ -84,6 +86,25 @@ class Aside extends DomObject {
                 background-size: cover;
                 background-image: url("./resource/image/agent/yixuan.webp");
                 cursor: pointer;
+            }
+
+            .deactive {
+                filter: grayscale(1) brightness(.3);
+                pointer-events: none;
+            }
+
+            .active::after {
+                content: "";
+                position: fixed;
+                top: 0; /* unit 바로 아래 */
+                left: 0;
+                width: 100%;   /* 원하는 크기 */
+                height: 100%;
+                background-image: url("./resource/image/frame.webp");
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+                pointer-events: none; /* 마우스 이벤트 무시 */
             }
 
             .unit:hover::after {
@@ -117,17 +138,72 @@ class Aside extends DomObject {
     showAgentList(agentList) {
         const readAgentList = (agentList) => {
             let htmlString = "";
-            agentList.forEach((list, index) => {
-                htmlString += `<div class="unit" style="background-image : url('./resource/image/agent/${list.image}')"></div>`;
+            agentList.forEach((list) => {
+                htmlString += `<div id="agentList${list.id}" class="unit" style="background-image : url('./resource/image/agent/${list.image}')"></div>`;
             });
             return htmlString;
         };
         document.querySelector("#sideBar").innerHTML += readAgentList(agentList);
     }
+    filterAgentList(e, agentList) {
+        const agentActive = (agentList) => {
+            const resetActiveList = () => {
+                const domElements = document.querySelectorAll('[id^="agentList"]');
+                domElements.forEach((element) => {
+                    if (element.className === "unit") {
+                        element.className = "unit";
+                    }
+                    else if (element.className === "unit active") {
+                        element.className = "unit";
+                    }
+                    else {
+                        element.className = "unit deactive";
+                    }
+                });
+            };
+            resetActiveList();
+            document.getElementById(`agentList${agentList.id}`).className = "unit active";
+        };
+        let htmlString = "";
+        const searchValue = e.target.value.trim();
+        const matchedNameArr = [];
+        agentList.forEach((list) => {
+            const agentName = list.korName;
+            if (agentName.includes(searchValue)) {
+                matchedNameArr.push(agentName);
+            }
+        });
+        agentList.forEach((agent) => {
+            if (matchedNameArr.includes(agent.korName)) {
+                htmlString += `<div id="agentList${agent.id}" class="unit" style="background-image : url('./resource/image/agent/${agent.image}')"></div>`;
+            }
+            else {
+                htmlString += `<div id="agentList${agent.id}" class="unit deactive" style="background-image : url('./resource/image/agent/${agent.image}')"></div>`;
+            }
+        });
+        document.querySelector("#sideBar").innerHTML = htmlString;
+        agentList.forEach((list) => {
+            this.addEventer(`#agentList${list.id}`, "click", () => { agentActive(list); });
+        });
+    }
     showElement() {
+        const agentActive = (agentList) => {
+            const resetActiveList = () => {
+                const domElements = document.querySelectorAll('[id^="agentList"]');
+                domElements.forEach((element) => {
+                    element.className = "unit";
+                });
+            };
+            resetActiveList();
+            document.getElementById(`agentList${agentList.id}`).className = "unit active";
+        };
         this.initDom();
         this.displayContent("#root");
         this.showAgentList(agentList);
+        this.addEventer("#searchInput", "input", (e) => { this.filterAgentList(e, agentList); });
+        agentList.forEach((list) => {
+            this.addEventer(`#agentList${list.id}`, "click", () => { agentActive(list); });
+        });
     }
 }
 const aside = new Aside("aside");
