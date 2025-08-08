@@ -146,7 +146,7 @@ class Aside extends DomObject {
             let htmlString = "";
 
             agentList.forEach( ( list: any ) => {
-                htmlString += `<div id="agentList${list.id}" class="unit" style="background-image : url('./resource/image/agent/${list.image}')"></div>`;
+                htmlString += `<div id="agentList${list.id}" class="unit" style="background-image : url('./resource/image/agent/${list.image}.webp')"></div>`;
             });
 
             return htmlString;
@@ -179,6 +179,8 @@ class Aside extends DomObject {
 
             resetActiveList();
             document.getElementById(`agentList${agentList.id}`)!.className = "unit active";
+            
+            section.updateBoard( agentList );
 
         }
 
@@ -196,9 +198,9 @@ class Aside extends DomObject {
 
         agentList.forEach( ( agent: any ) => {
             if( matchedNameArr.includes( agent.korName ) ) {
-                htmlString += `<div id="agentList${agent.id}" class="unit" style="background-image : url('./resource/image/agent/${agent.image}')"></div>`;
+                htmlString += `<div id="agentList${agent.id}" class="unit" style="background-image : url('./resource/image/agent/${agent.image}.webp')"></div>`;
             } else {
-                htmlString += `<div id="agentList${agent.id}" class="unit deactive" style="background-image : url('./resource/image/agent/${agent.image}')"></div>`;
+                htmlString += `<div id="agentList${agent.id}" class="unit deactive" style="background-image : url('./resource/image/agent/${agent.image}.webp')"></div>`;
             }
         } );
         
@@ -207,6 +209,7 @@ class Aside extends DomObject {
         agentList.forEach( ( list: any ) => { 
             this.addEventer(`#agentList${list.id}`, "click", () => { agentActive( list ) });
         } );
+
     }
 
 
@@ -226,6 +229,8 @@ class Aside extends DomObject {
 
             resetActiveList();
             document.getElementById(`agentList${agentList.id}`)!.className = "unit active";
+
+            section.updateBoard( agentList );
 
         }
 

@@ -139,7 +139,7 @@ class Aside extends DomObject {
         const readAgentList = (agentList) => {
             let htmlString = "";
             agentList.forEach((list) => {
-                htmlString += `<div id="agentList${list.id}" class="unit" style="background-image : url('./resource/image/agent/${list.image}')"></div>`;
+                htmlString += `<div id="agentList${list.id}" class="unit" style="background-image : url('./resource/image/agent/${list.image}.webp')"></div>`;
             });
             return htmlString;
         };
@@ -163,6 +163,7 @@ class Aside extends DomObject {
             };
             resetActiveList();
             document.getElementById(`agentList${agentList.id}`).className = "unit active";
+            section.updateBoard(agentList);
         };
         let htmlString = "";
         const searchValue = e.target.value.trim();
@@ -175,10 +176,10 @@ class Aside extends DomObject {
         });
         agentList.forEach((agent) => {
             if (matchedNameArr.includes(agent.korName)) {
-                htmlString += `<div id="agentList${agent.id}" class="unit" style="background-image : url('./resource/image/agent/${agent.image}')"></div>`;
+                htmlString += `<div id="agentList${agent.id}" class="unit" style="background-image : url('./resource/image/agent/${agent.image}.webp')"></div>`;
             }
             else {
-                htmlString += `<div id="agentList${agent.id}" class="unit deactive" style="background-image : url('./resource/image/agent/${agent.image}')"></div>`;
+                htmlString += `<div id="agentList${agent.id}" class="unit deactive" style="background-image : url('./resource/image/agent/${agent.image}.webp')"></div>`;
             }
         });
         document.querySelector("#sideBar").innerHTML = htmlString;
@@ -196,6 +197,7 @@ class Aside extends DomObject {
             };
             resetActiveList();
             document.getElementById(`agentList${agentList.id}`).className = "unit active";
+            section.updateBoard(agentList);
         };
         this.initDom();
         this.displayContent("#root");
