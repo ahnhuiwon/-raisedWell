@@ -8,6 +8,13 @@
     src: url("../../font/ko-kr.ttf");
 }
 
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 @keyframes bgAnimation1{ 
     0% {
         transform: translate(25%);
@@ -30,10 +37,21 @@
 
 @keyframes moveStripes {
   from { background-position: 0 0; }
-  to   { background-position: 60px 0; }
+  to   { background-position: 544.26px 0; }
 }
 
 body {
     font-family: "zenless";
     overflow: hidden;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox  */
+input[type='number'] {
+  -moz-appearance: textfield;
 }

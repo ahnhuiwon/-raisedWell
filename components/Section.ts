@@ -17,7 +17,9 @@ class Section extends DomObject {
                             </div>
                         </div>
                         <div class="percent">
-                            <div class="progress-bar"></div>
+                            <div class="progress-bg">
+                                <div class="progress-bar" id="progress-bar"></div>
+                            </div>
                         </div>
                         <div class="pointWrap">
                             <div class="pointBoard">
@@ -108,15 +110,36 @@ class Section extends DomObject {
                 top: 0;
                 margin-left: 14px;
                 /*background: linear-gradient(to right, #FDAF33, #FC1415);*/
-                background: linear-gradient(to bottom right, #B3B3B3, #999999);
+                background-color: #343A40;
                 transform: skew(-20deg);
             }
 
-            .progress-bar {
+            .progress-bg {
                 height: 100%;
-                width: 40%;
+                width: 100%;
                 color: white;
-                background: linear-gradient(to right, #FDAF33, #FC1415);
+                background: #FDAF33;
+            }
+
+            .progress-bar {
+                width: 0;
+                height: 100%;
+                transition: width 1s ease;
+
+                /* 기본 배경색 + 스트라이프 패턴 */
+                background: 
+                  repeating-linear-gradient(
+                    135deg,               /* 스트라이프 각도 */
+                    rgba(255,255,255,0.2) 0px,
+                    rgba(255,255,255,0.2) 10px,
+                    transparent 10px,
+                    transparent 20px
+                  ),
+                  #FC1415; 
+
+                /* 스트라이프 애니메이션 */
+                background-size: 28.32px 28.32px;
+                animation: moveStripes 15s linear infinite;
             }
 
             .pointWrap {
@@ -188,6 +211,7 @@ class Section extends DomObject {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                font-family: 'GmarketSansMedium';
             }
 
             .inputWrap > input {
@@ -227,6 +251,52 @@ class Section extends DomObject {
 
     updateBoard( agentObj: any ) {
 
+        const changeValue = ( agentObj: any ) => {
+
+            interface Ability {
+                name: string,
+                user: number;
+                standard: number;
+            }
+            
+            let sumPoint = 0;
+            const abilityArr: Ability[] = [];
+            const formElement = document.getElementById("agentAbilityForm") as HTMLFormElement;
+            const formData = new FormData(formElement);
+
+            const abilityData: Record<string, number> = {};
+
+            formData.forEach((value, key) => {
+                abilityData[key] = Number(value);
+            });
+
+
+            const validAbilities = agentObj.ability.filter((abilityObj:any) => abilityObj.valid);
+
+            validAbilities.forEach((abilityObj:any) => {
+                const key = Object.keys(abilityObj)[0];  // 예: "공격력"
+                const agentValue = abilityObj.amount;
+                const inputValue = abilityData[key];
+            
+                console.log(`비교 - ${key}: 에이전트=${agentValue}, 사용자입력=${inputValue}`);
+            
+                abilityArr.push( { name: key, user: inputValue, standard: agentValue } );
+            });
+
+            abilityArr.forEach( ( abilityList ) => {
+                sumPoint += Number(abilityList.user) / Number(abilityList.standard);
+            });
+
+            let result = Math.floor((sumPoint / abilityArr.length) * 100);
+
+            if(result > 100) {
+                result = 100;
+            }
+
+            document.getElementById("resultPoint")!.innerText = String(result);
+            document.getElementById("progress-bar")!.style.width = `${result}%`;
+        }
+
         type Ability = {
             [key: string]: any; 
             valid: boolean;
@@ -243,16 +313,23 @@ class Section extends DomObject {
         element.innerHTML = `<div class="cardAgentImage" style="background-image: url('./resource/image/agentFace/${agentObj.image}.png')"></div>`;
         agentNameElement.innerText = `${agentObj.korName}`;
 
-        agentObj.ability.forEach( ( abilityObj: Ability ) => {
-            htmlString += `
-                <div class="inputWrap ${ abilityObj.valid ? "point" : "" }">
-                    <span>${ Object.keys( abilityObj )[0] }</span>
-                    <input class="${ abilityObj.valid ? "point" : "normal" }" value=${ abilityObj.valid ? abilityObj.amount : 0 }>
-                </div>`;
+        agentObj.ability.forEach( ( abilityObj: Ability, index: number ) => {
+            if( abilityObj.valid ) {
+                htmlString += `
+                    <div class="inputWrap ${ abilityObj.valid ? "point" : "" }">
+                        <span>${ Object.keys( abilityObj )[0] }</span>
+                        <input type="number" id="ability${ index }" class="point" name="${ Object.keys( abilityObj )[0] }" value=0>
+                    </div>`;
+            }
         });
 
         agentAbilityForm.innerHTML = htmlString;
         
+        agentObj.ability.forEach( ( abilityObj: Ability, index: number ) => { 
+            if( abilityObj.valid ){
+                this.addEventer(`#ability${index}`, "input", () => { changeValue( agentObj ) });
+            }
+        } );
     }
 
 }
