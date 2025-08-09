@@ -1,5 +1,5 @@
 const agentList = [
-    { id: 0, engName: "yuzuha", korName: "유즈하", image: "yuzuha", ability: [
+    { id: 0, engName: "yuzuha", korName: "우키나미 유즈하", image: "yuzuha", ability: [
         { "HP" : "", valid : false, amount: 0 },
         { "공격력" : "", valid : true, amount: 3000 },
         { "방어력" : "", valid : false, amount: 0 },
@@ -24,7 +24,7 @@ const agentList = [
         { "에너지 자동 회복" : "", valid : false, amount: 0 }
     ]},
     { id: 2, engName: "yixuan", korName: "의현", image: "yixuan", ability: [
-        { "HP" : "", valid : true, amount: 18000 },
+        { "HP" : "", valid : false, amount: 0 },
         { "공격력" : "", valid : false, amount: 0 },
         { "방어력" : "", valid : false, amount: 0 },
         { "충격력" : "", valid : false, amount: 0 },

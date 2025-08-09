@@ -1,11 +1,27 @@
 "use strict";
+/**
+ * Section 컴포넌트
+ */
 class Section extends DomObject {
+    /**
+     * Section 컴포넌트
+     *
+     * Class constructor
+     *
+     * @param { string } id 식별자
+     */
     constructor(id) {
         super(id);
     }
+    /**
+     *
+     * 컴포넌트 초기 셋팅 메소드
+     *
+     */
     initDom() {
         this.contentsPc = `
             <section class="sectionWrap" id="sectionWrap">
+                <div class="agentStand" id="agentStand"></div>
                 <article class="agentCard">
                     <div class="cardPercent">
                         <div class="cardWrap">
@@ -40,7 +56,20 @@ class Section extends DomObject {
                 width: 960px;
                 height: 140px;
                 left: 100px;
-                bottom: 300px;
+                bottom: 180px;
+            }
+
+            .agentStand {
+                width: 400px;
+                height: 653px;
+                position: absolute;
+                bottom: 0;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                z-index: -200;
+                left: 50%;
+                margin-left: -200px;
             }
 
             .agentCard {
@@ -170,11 +199,14 @@ class Section extends DomObject {
 
             .abilityBoard {
                 position: absolute;
-                width: 880px;
+                width: 870px;
                 height: auto;
                 top: 0;
-                left: 30px;
-                background: linear-gradient(to bottom right, #151515, #181818);
+                left: 40px;
+                background-color: rgba(35, 34, 34, 1);
+                background-image: url("./resource/image/boardBackground.png");
+                background-size: cover;
+                background-repeat: no-repeat;
                 z-index: -100;
                 border: 10px solid #999999;
                 border-bottom-left-radius: 15px;
@@ -186,20 +218,20 @@ class Section extends DomObject {
                 margin-top: 35px;
                 margin-left: 215px;
                 color: rgb(255, 255, 255);
-                filter: grayscale(1) brightness(.3);
+                filter: grayscale(1) brightness(.6);
                 font-size: 1.8rem;
             }
 
             .abilityBoard > form {
                 width: 100%;
                 display: flex;
-                justify-content: space-between;
+                justify-content: flex-start;
                 margin-top: 45px;
                 flex-wrap: wrap;
             }
 
             .inputWrap {
-                width: 240px;
+                width: 230px;
                 color: white;
                 font-size: 1rem;
                 background-color: #000000;
@@ -210,6 +242,7 @@ class Section extends DomObject {
                 justify-content: space-between;
                 align-items: center;
                 font-family: 'GmarketSansMedium';
+                margin-left: 20px;
             }
 
             .inputWrap > input {
@@ -239,12 +272,35 @@ class Section extends DomObject {
             }
         </style>`;
     }
+    /**
+     * 컴포넌트의 요소들을
+     *
+     * 화면에 렌더링하는 메소드
+     *
+     */
     showElement() {
         this.initDom();
         this.displayContent("#root");
     }
+    /**
+     * Aside 에이전트 클릭 시
+     *
+     * 프로그레스바, 점수 초기화
+     */
+    resetBoard() {
+        document.getElementById("progress-bar").style.width = "0";
+        document.getElementById("resultPoint").innerText = "0";
+    }
+    /**
+     * Board 업데이트
+     * @param { Object } agentObj 에이전트 정보
+     */
     updateBoard(agentObj) {
-        var _a;
+        /**
+         * 유저 스펙 점수 계산 함수
+         *
+         * @param { Object } agentObj 에이전트 정보
+         */
         const changeValue = (agentObj) => {
             let sumPoint = 0;
             const abilityArr = [];
@@ -256,10 +312,9 @@ class Section extends DomObject {
             });
             const validAbilities = agentObj.ability.filter((abilityObj) => abilityObj.valid);
             validAbilities.forEach((abilityObj) => {
-                const key = Object.keys(abilityObj)[0]; // 예: "공격력"
+                const key = Object.keys(abilityObj)[0];
                 const agentValue = abilityObj.amount;
                 const inputValue = abilityData[key];
-                console.log(`비교 - ${key}: 에이전트=${agentValue}, 사용자입력=${inputValue}`);
                 abilityArr.push({ name: key, user: inputValue, standard: agentValue });
             });
             abilityArr.forEach((abilityList) => {
@@ -272,29 +327,54 @@ class Section extends DomObject {
             document.getElementById("resultPoint").innerText = String(result);
             document.getElementById("progress-bar").style.width = `${result}%`;
         };
-        let htmlString = "";
-        const element = document.getElementById("cardChild");
-        const agentNameElement = document.getElementById("initBoard");
-        const agentAbilityForm = document.getElementById("agentAbilityForm");
-        (_a = document.querySelector("#cardChild p")) === null || _a === void 0 ? void 0 : _a.remove();
-        element.style.display = "block";
-        element.innerHTML = `<div class="cardAgentImage" style="background-image: url('./resource/image/agentFace/${agentObj.image}.png')"></div>`;
-        agentNameElement.innerText = `${agentObj.korName}`;
-        agentObj.ability.forEach((abilityObj, index) => {
-            if (abilityObj.valid) {
-                htmlString += `
-                    <div class="inputWrap ${abilityObj.valid ? "point" : ""}">
-                        <span>${Object.keys(abilityObj)[0]}</span>
-                        <input type="number" id="ability${index}" class="point" name="${Object.keys(abilityObj)[0]}" value=0>
-                    </div>`;
-            }
-        });
-        agentAbilityForm.innerHTML = htmlString;
-        agentObj.ability.forEach((abilityObj, index) => {
-            if (abilityObj.valid) {
-                this.addEventer(`#ability${index}`, "input", () => { changeValue(agentObj); });
-            }
-        });
+        /**
+         * 에이전트 이미지 변경 함수
+         *
+         * @param { Object } agentParam 에이전트 정보
+         */
+        const changeAgentImage = (agentParam) => {
+            const cardImageElement = document.getElementById("cardChild");
+            const standImageElement = document.getElementById("agentStand");
+            cardImageElement.style.display = "block";
+            cardImageElement.innerHTML = `<div class="cardAgentImage" style="background-image: url('./resource/image/agentFace/${agentParam.image}.png')"></div>`;
+            standImageElement.style.backgroundImage = `url('./resource/image/agentStand/${agentParam.image}.png')`;
+        };
+        /**
+         * 에이전트 텍스트 변경 함수
+         *
+         * @param { Object } agentParam 에이전트 정보
+         */
+        const chageAgentName = (agentParam) => {
+            const agentNameElement = document.getElementById("initBoard");
+            agentNameElement.innerText = `${agentParam.korName}`;
+        };
+        /**
+         * 에이전트 능력치 Form 변경 함수
+         *
+         * @param { Object } agentParam 에이전트 정보
+         */
+        const changeAgentForm = (agentParam) => {
+            let htmlString = "";
+            const agentAbilityForm = document.getElementById("agentAbilityForm");
+            agentParam.ability.forEach((abilityObj, index) => {
+                if (abilityObj.valid) {
+                    htmlString += `
+                        <div class="inputWrap ${abilityObj.valid ? "point" : ""}">
+                            <span>${Object.keys(abilityObj)[0]}</span>
+                            <input type="number" id="ability${index}" class="point" name="${Object.keys(abilityObj)[0]}" value=0>
+                        </div>`;
+                }
+            });
+            agentAbilityForm.innerHTML = htmlString;
+            agentObj.ability.forEach((abilityObj, index) => {
+                if (abilityObj.valid) {
+                    this.addEventer(`#ability${index}`, "input", () => { changeValue(agentObj); });
+                }
+            });
+        };
+        changeAgentImage(agentObj);
+        chageAgentName(agentObj);
+        changeAgentForm(agentObj);
     }
 }
 const section = new Section("section");

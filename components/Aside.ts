@@ -1,9 +1,26 @@
+
+/**
+ * Aside 컴포넌트
+ */
 class Aside extends DomObject {
 
+    /**
+     * Aside 컴포넌트
+     * 
+     * Class constructor
+     *  
+     * @param { string } id 식별자
+     */
     constructor( id: string ) {
         super( id );
     }
 
+
+    /**
+     * 
+     * 컴포넌트 초기 셋팅 메소드
+     * 
+     */
     initDom() {
         this.contentsPc = `
             <div class="asideWrap" id="asideWrap">
@@ -139,6 +156,14 @@ class Aside extends DomObject {
     }
 
 
+    /**
+     * 
+     * Aside 에이전트 카드
+     * 
+     * 리스트 제작, 렌더 메소드
+     * 
+     * @param { Array } agentList 에이전트 리스트
+     */
     showAgentList( agentList: any ) {
 
         const readAgentList = ( agentList: any ) => {
@@ -157,90 +182,111 @@ class Aside extends DomObject {
 
     }
 
-    filterAgentList( e: any, agentList: any ) {
 
-        const agentActive = ( agentList: any ) => {
+    /**
+     * 
+     * Aside 에이전트 카드
+     * 
+     * 리스트 리셋
+     * 
+     */
+    resetAgentList() {
 
-            const resetActiveList = () => {
+        const domElements = document.querySelectorAll('[id^="agentList"]');
 
-                const domElements = document.querySelectorAll('[id^="agentList"]');
-
-                domElements.forEach( ( element ) => { 
-                    if( element.className === "unit" ) {
-                        element.className = "unit"
-                    } else if( element.className === "unit active" ) {
-                        element.className = "unit"
-                    } else {
-                        element.className = "unit deactive"
-                    }
-                } );
-
+        domElements.forEach( ( element ) => { 
+            switch( element.className ) {
+                case "unit" :
+                    element.className = "unit";
+                    break;
+                case "unit active" :
+                    element.className = "unit";
+                    break;
+                default:
+                    element.className = "unit deactive";
             }
+        });
+    }
 
-            resetActiveList();
-            document.getElementById(`agentList${agentList.id}`)!.className = "unit active";
-            
-            section.updateBoard( agentList );
 
-        }
+    /**
+     * 클릭 시, 에이전트 카드 활성화 
+     * 
+     * @param { Array } agentList 에이전트 리스트
+     */
+    activeAgentList( agentList: Agent ) {
+
+        this.resetAgentList();
+
+        section.resetBoard();
+        section.updateBoard( agentList );
+
+        document.getElementById(`agentList${agentList.id}`)!.className = "unit active";
+        
+    }
+
+
+    /**
+     * 에이전트 검색 메소드
+     * 
+     * @param { Event } e 이벤트
+     * @param { Array } agentList 에이전트 리스트
+     */
+    filterAgentList( e: Event, agentList: Agent[] ) {
 
         let htmlString = "";
-        const searchValue = e.target.value.trim();
+        const eventTarget = e.target as HTMLInputElement;
+        const targetValue = eventTarget.value.trim();
         const matchedNameArr: string[] = [];
 
-        agentList.forEach( ( list: any ) => {
-            const agentName = list.korName;
+        /**
+         * 입력한 데이터와 에이전트 이름 대조 (한글자 검색 가능)
+         */
+        agentList.forEach( ( agent: Agent ) => {
 
-            if( agentName.includes( searchValue ) ) {
-                matchedNameArr.push( agentName );
+            if( agent.korName.includes( targetValue ) ) {
+                matchedNameArr.push( agent.korName );
             }
-        } );
 
-        agentList.forEach( ( agent: any ) => {
             if( matchedNameArr.includes( agent.korName ) ) {
                 htmlString += `<div id="agentList${agent.id}" class="unit" style="background-image : url('./resource/image/agent/${agent.image}.webp')"></div>`;
             } else {
                 htmlString += `<div id="agentList${agent.id}" class="unit deactive" style="background-image : url('./resource/image/agent/${agent.image}.webp')"></div>`;
             }
+
         } );
         
         document.querySelector("#sideBar")!.innerHTML = htmlString;
         
-        agentList.forEach( ( list: any ) => { 
-            this.addEventer(`#agentList${list.id}`, "click", () => { agentActive( list ) });
-        } );
+
+        /**
+         * 에이전트 리스트
+         * 
+         * 이벤트 리스너 등록
+         */
+        agentList.forEach( ( list: Agent ) => { 
+            this.addEventer(`#agentList${list.id}`, "click", () => { this.activeAgentList( list ) });
+        });
 
     }
 
 
+    /**
+     * 컴포넌트의 요소들을
+     * 
+     * 화면에 렌더링하는 메소드
+     * 
+     */
     showElement() {
-
-        const agentActive = ( agentList: any ) => {
-
-            const resetActiveList = () => {
-
-                const domElements = document.querySelectorAll('[id^="agentList"]');
-
-                domElements.forEach( ( element ) => { 
-                    element.className = "unit";
-                } );
-
-            }
-
-            resetActiveList();
-            document.getElementById(`agentList${agentList.id}`)!.className = "unit active";
-
-            section.updateBoard( agentList );
-
-        }
 
         this.initDom();
         this.displayContent( "#root" );
         this.showAgentList( agentList );
-        this.addEventer("#searchInput", "input", (e) => { this.filterAgentList( e, agentList ) });
 
-        agentList.forEach( ( list ) => { 
-            this.addEventer(`#agentList${list.id}`, "click", () => { agentActive( list ) });
+        this.addEventer("#searchInput", "input", (e) => { this.filterAgentList( e, agentList ) });
+        
+        agentList.forEach( ( list: Agent ) => { 
+            this.addEventer(`#agentList${list.id}`, "click", () => { this.activeAgentList( list ) });
         } );
 
     }

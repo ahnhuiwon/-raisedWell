@@ -1,8 +1,23 @@
 "use strict";
+/**
+ * Aside 컴포넌트
+ */
 class Aside extends DomObject {
+    /**
+     * Aside 컴포넌트
+     *
+     * Class constructor
+     *
+     * @param { string } id 식별자
+     */
     constructor(id) {
         super(id);
     }
+    /**
+     *
+     * 컴포넌트 초기 셋팅 메소드
+     *
+     */
     initDom() {
         this.contentsPc = `
             <div class="asideWrap" id="asideWrap">
@@ -135,6 +150,14 @@ class Aside extends DomObject {
             }
         </style>`;
     }
+    /**
+     *
+     * Aside 에이전트 카드
+     *
+     * 리스트 제작, 렌더 메소드
+     *
+     * @param { Array } agentList 에이전트 리스트
+     */
     showAgentList(agentList) {
         const readAgentList = (agentList) => {
             let htmlString = "";
@@ -145,36 +168,57 @@ class Aside extends DomObject {
         };
         document.querySelector("#sideBar").innerHTML += readAgentList(agentList);
     }
-    filterAgentList(e, agentList) {
-        const agentActive = (agentList) => {
-            const resetActiveList = () => {
-                const domElements = document.querySelectorAll('[id^="agentList"]');
-                domElements.forEach((element) => {
-                    if (element.className === "unit") {
-                        element.className = "unit";
-                    }
-                    else if (element.className === "unit active") {
-                        element.className = "unit";
-                    }
-                    else {
-                        element.className = "unit deactive";
-                    }
-                });
-            };
-            resetActiveList();
-            document.getElementById(`agentList${agentList.id}`).className = "unit active";
-            section.updateBoard(agentList);
-        };
-        let htmlString = "";
-        const searchValue = e.target.value.trim();
-        const matchedNameArr = [];
-        agentList.forEach((list) => {
-            const agentName = list.korName;
-            if (agentName.includes(searchValue)) {
-                matchedNameArr.push(agentName);
+    /**
+     *
+     * Aside 에이전트 카드
+     *
+     * 리스트 리셋
+     *
+     */
+    resetAgentList() {
+        const domElements = document.querySelectorAll('[id^="agentList"]');
+        domElements.forEach((element) => {
+            switch (element.className) {
+                case "unit":
+                    element.className = "unit";
+                    break;
+                case "unit active":
+                    element.className = "unit";
+                    break;
+                default:
+                    element.className = "unit deactive";
             }
         });
+    }
+    /**
+     * 클릭 시, 에이전트 카드 활성화
+     *
+     * @param { Array } agentList 에이전트 리스트
+     */
+    activeAgentList(agentList) {
+        this.resetAgentList();
+        section.resetBoard();
+        section.updateBoard(agentList);
+        document.getElementById(`agentList${agentList.id}`).className = "unit active";
+    }
+    /**
+     * 에이전트 검색 메소드
+     *
+     * @param { Event } e 이벤트
+     * @param { Array } agentList 에이전트 리스트
+     */
+    filterAgentList(e, agentList) {
+        let htmlString = "";
+        const eventTarget = e.target;
+        const targetValue = eventTarget.value.trim();
+        const matchedNameArr = [];
+        /**
+         * 입력한 데이터와 에이전트 이름 대조 (한글자 검색 가능)
+         */
         agentList.forEach((agent) => {
+            if (agent.korName.includes(targetValue)) {
+                matchedNameArr.push(agent.korName);
+            }
             if (matchedNameArr.includes(agent.korName)) {
                 htmlString += `<div id="agentList${agent.id}" class="unit" style="background-image : url('./resource/image/agent/${agent.image}.webp')"></div>`;
             }
@@ -183,28 +227,28 @@ class Aside extends DomObject {
             }
         });
         document.querySelector("#sideBar").innerHTML = htmlString;
+        /**
+         * 에이전트 리스트
+         *
+         * 이벤트 리스너 등록
+         */
         agentList.forEach((list) => {
-            this.addEventer(`#agentList${list.id}`, "click", () => { agentActive(list); });
+            this.addEventer(`#agentList${list.id}`, "click", () => { this.activeAgentList(list); });
         });
     }
+    /**
+     * 컴포넌트의 요소들을
+     *
+     * 화면에 렌더링하는 메소드
+     *
+     */
     showElement() {
-        const agentActive = (agentList) => {
-            const resetActiveList = () => {
-                const domElements = document.querySelectorAll('[id^="agentList"]');
-                domElements.forEach((element) => {
-                    element.className = "unit";
-                });
-            };
-            resetActiveList();
-            document.getElementById(`agentList${agentList.id}`).className = "unit active";
-            section.updateBoard(agentList);
-        };
         this.initDom();
         this.displayContent("#root");
         this.showAgentList(agentList);
         this.addEventer("#searchInput", "input", (e) => { this.filterAgentList(e, agentList); });
         agentList.forEach((list) => {
-            this.addEventer(`#agentList${list.id}`, "click", () => { agentActive(list); });
+            this.addEventer(`#agentList${list.id}`, "click", () => { this.activeAgentList(list); });
         });
     }
 }

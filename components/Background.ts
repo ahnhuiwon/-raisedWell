@@ -1,9 +1,25 @@
+/**
+ * Background 컴포넌트
+ */
 class Background extends DomObject {
 
+    /**
+     * Background 컴포넌트
+     * 
+     * Class constructor
+     *  
+     * @param { string } id 식별자
+     */
     constructor( id: string ) {
         super( id );
     }
 
+
+    /**
+     * 
+     * 컴포넌트 초기 셋팅 메소드
+     * 
+     */
     initDom() {
         this.contentsPc = `
             <div class="rollingBg">
@@ -302,6 +318,12 @@ class Background extends DomObject {
     }
 
 
+    /**
+     * 컴포넌트의 요소들을
+     * 
+     * 화면에 렌더링하는 메소드
+     * 
+     */
     showElement() {
         this.initDom();
         this.displayContent( "#root" );
