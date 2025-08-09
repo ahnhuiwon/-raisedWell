@@ -259,6 +259,20 @@ class Section extends DomObject {
                 font-family: "zenless";
             }
 
+            .inputWrap > span {
+                font-size: 1rem;
+                font-family: "zenless";
+            }
+
+            .inputWrap > p {
+                font-size: 1rem;
+                font-family: "zenless";
+            }
+
+            .inputWrap > p: last-child {
+                width: 45px;
+            }
+
             .normal {
                 color: white;
             }
@@ -315,7 +329,7 @@ class Section extends DomObject {
          * 
          * @param { Object } agentObj 에이전트 정보
          */
-        const changeValue = ( agentObj: any ) => {
+        const changeValue = ( agentObj: Agent ) => {
             
             let sumPoint = 0;
             const abilityArr: AbilityObj[] = [];
@@ -340,17 +354,19 @@ class Section extends DomObject {
             });
 
             abilityArr.forEach( ( abilityList ) => {
-                sumPoint += Number(abilityList.user) / Number(abilityList.standard);
+                switch( abilityList.name ) {
+                    case "치명타 확률" :
+                        sumPoint += Number( Math.min( abilityList.user, abilityList.standard ) ) / Number( abilityList.standard );
+                        break;
+                    default :
+                        sumPoint += Number(abilityList.user) / Number(abilityList.standard);
+                }
             });
 
             let result = Math.floor((sumPoint / abilityArr.length) * 100);
 
-            if(result > 100) {
-                result = 100;
-            }
-
             document.getElementById("resultPoint")!.innerText = String(result);
-            document.getElementById("progress-bar")!.style.width = `${result}%`;
+            document.getElementById("progress-bar")!.style.width = `${ result > 100 ? 100 : result }%`;
         }
 
 
@@ -393,14 +409,17 @@ class Section extends DomObject {
         const changeAgentForm = ( agentParam: Agent ) => {
 
             let htmlString = "";
+            let initSet = false;
             const agentAbilityForm = document.getElementById("agentAbilityForm") as HTMLDivElement;
 
             agentParam.ability.forEach( ( abilityObj: AbilityItem, index: number ) => {
                 if( abilityObj.valid ) {
                     htmlString += `
                         <div class="inputWrap ${ abilityObj.valid ? "point" : "" }">
-                            <span>${ Object.keys( abilityObj )[0] }</span>
-                            <input type="number" id="ability${ index }" class="point" name="${ Object.keys( abilityObj )[0] }" value=0>
+                            <p>${ Object.keys( abilityObj )[0] }</p>
+                            <input tabindex="${ ( index + 1 ) * 10 }" type="number" id="ability${ index }" class="point" name="${ Object.keys( abilityObj )[0] }" placeholder="0">
+                            <span>/</span>
+                            <p>${ abilityObj.amount }</p>
                         </div>`;
                 }
             });
@@ -410,6 +429,11 @@ class Section extends DomObject {
             agentObj.ability.forEach( ( abilityObj: AbilityItem, index: number ) => { 
                 if( abilityObj.valid ){
                     this.addEventer(`#ability${index}`, "input", () => { changeValue( agentObj ) });
+
+                    if( !initSet ) {
+                        document.getElementById(`ability${index}`)?.focus();
+                        initSet = true;
+                    }
                 }
             });
         }
