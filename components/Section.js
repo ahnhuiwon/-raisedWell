@@ -57,7 +57,7 @@ class Section extends DomObject {
                         <div class="cardWrap">
                             <div class="card">
                                 <div class="cardChild" id="cardChild">
-                                    <p class="resultPoint" id="resultPoint">100</p>
+                                    <p class="resultPoint" id="resultPoint">0</p>
                                 </div>
                             </div>
                         </div>
@@ -333,7 +333,9 @@ class Section extends DomObject {
             .agentCard {
                 position: relative;
                 width: 100%;
-                height: 100%
+                margin-top: -100px;
+                min-height: 87.5px;
+                bottom: 30px;
             }
 
             .cardPercent {
@@ -342,8 +344,8 @@ class Section extends DomObject {
             }
 
             .cardWrap {
-                width: 100px;
-                height: 100px;
+                width: 80px;
+                height: 80px;
                 background: linear-gradient(to right, #FDCE4C, #FDAF33);
                 display: inline-flex;
                 align-items: center;
@@ -355,8 +357,8 @@ class Section extends DomObject {
             }
 
             .card {
-                width: 80%;
-                height: 80%;
+                width: 90%;
+                height: 90%;
                 background-color: #131413; 
                 display: flex;
                 justify-content: center;
@@ -386,18 +388,31 @@ class Section extends DomObject {
 
             .percent {
                 display: inline-flex;
-                width: 100%;
+                width: calc(100% - 10px);
                 height: 30px;
                 background-color: #343A40;
+                margin-left: 10px;
+                position: relative;
             }
 
             .progress-bg {
                 height: 100%;
-                width: 100%;
+                width: calc(100% - 60px);
                 color: white;
-                background: #383838;
+                background: 
+                repeating-linear-gradient(
+                  135deg,               /* 스트라이프 각도 */
+                  rgba(255,255,255,0.2) 0px,
+                  rgba(255,255,255,0.2) 10px,
+                  transparent 10px,
+                  transparent 20px
+                ),
+                #383838; 
                 background-size: 28.32px 28.32px;
-                animation: moveStripes 15s linear infinite; 
+                animation: moveStripes 15s linear infinite;
+                position: absolute;
+                right: 0;
+                z-index: 50;
             }
 
             .progress-bar {
@@ -451,34 +466,32 @@ class Section extends DomObject {
 
             .abilityBoard {
                 position: absolute;
-                width: 900px;
+                width: calc(100% - 10px);
                 height: auto;
                 top: 0;
-                left: 40px;
+                left: 10px;
                 background-color: rgba(35, 34, 34, 1);
-                background-image: url("./resource/image/boardBackground.png");
+                background-image: url(./resource/image/boardBackground.png);
                 background-size: cover;
                 background-repeat: no-repeat;
-                z-index: -100;
-                border: 10px solid #999999;
+                /* border: 10px solid #999999; */
                 border-bottom-left-radius: 15px;
                 border-bottom-right-radius: 15px;
-                padding: 15px 0;
             }
 
             .abilityBoard > p {
-                margin-top: 35px;
-                margin-left: 215px;
+                margin-top: 50px;
+                margin-left: 80px;
                 color: rgb(255, 255, 255);
                 filter: grayscale(1) brightness(.6);
-                font-size: 1.8rem;
+                font-size: 1rem;
             }
 
             .abilityBoard > form {
                 width: 100%;
                 display: flex;
-                justify-content: flex-start;
-                margin-top: 45px;
+                justify-content: flex-end;
+                margin-top: 15px;
                 flex-wrap: wrap;
             }
 
@@ -588,6 +601,12 @@ class Section extends DomObject {
                     case "치명타 확률":
                         sumPoint += Number(Math.min(abilityList.user, abilityList.standard)) / Number(abilityList.standard);
                         break;
+                    case "이상 장악력":
+                        sumPoint += Number(Math.min(abilityList.user, abilityList.standard)) / Number(abilityList.standard);
+                        break;
+                    case "충격력":
+                        sumPoint += Number(Math.min(abilityList.user, abilityList.standard)) / Number(abilityList.standard);
+                        break;
                     default:
                         sumPoint += Number(abilityList.user) / Number(abilityList.standard);
                 }
@@ -604,9 +623,11 @@ class Section extends DomObject {
         const changeAgentImage = (agentParam) => {
             const cardImageElement = document.getElementById("cardChild");
             const standImageElement = document.getElementById("agentStand");
-            cardImageElement.style.display = "block";
-            cardImageElement.innerHTML = `<div class="cardAgentImage" style="background-image: url('./resource/image/agentFace/${agentParam.image}.png')"></div>`;
             standImageElement.style.backgroundImage = `url('./resource/image/agentStand/${agentParam.image}.png')`;
+            if (window.innerWidth > 800) {
+                cardImageElement.style.display = "block";
+                cardImageElement.innerHTML = `<div class="cardAgentImage" style="background-image: url('./resource/image/agentFace/${agentParam.image}.png')"></div>`;
+            }
         };
         /**
          * 에이전트 텍스트 변경 함수

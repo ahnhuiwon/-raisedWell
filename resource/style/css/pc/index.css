@@ -41,8 +41,7 @@
 }
 
 body {
-    font-family: "zenless";
-    overflow: hidden;
+    
 }
 
 input::-webkit-outer-spin-button,
@@ -56,11 +55,17 @@ input[type='number'] {
   -moz-appearance: textfield;
 }
 
-.scroll::-webkit-scrollbar {
-  display: none;
-}
-
-.scroll {
-  -ms-overflow-style: none; /* 인터넷 익스플로러 */
-  scrollbar-width: none; /* 파이어폭스 */
-}
+@media (max-width: 960px) {
+    body {
+        font-family: "zenless";
+        overflow: visible;
+    }
+  }
+  
+  /* 961px 이상일 때 overflow 적용 */
+  @media (min-width: 961px) {
+    body {
+        font-family: "zenless";
+        overflow: hidden;
+    }
+  }
