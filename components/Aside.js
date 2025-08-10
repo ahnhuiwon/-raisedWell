@@ -29,7 +29,11 @@ class Aside extends DomObject {
                 </section>
             </div>
         `;
-        this.contentsMobile = ``;
+        this.contentsMobile = `
+            <aside class="asideWrap" id="asideWrap">
+                <section class="sideBar" id="sideBar"></section>
+            </aside>
+        `;
         this.stylePc = `<style>
             .asideWrap {
                 position: fixed;
@@ -149,6 +153,89 @@ class Aside extends DomObject {
                 margin-left: -20px;
             }
         </style>`;
+        this.styleMobile = `
+            <style>
+                .asideWrap {
+                    position: fixed;
+                    top: 88px;
+                    width: 100vw;
+                    height: 100px;
+                    background: #000;
+                    box-shadow: 0 0 10px 10px #000;
+                    display: flex;
+                    flex-flow: row nowrap;
+                }
+
+                .sideBar {
+                    width: 100%;
+                    height: 100%;
+                    transform: rotate(0deg);
+                    padding: 10px;
+                    flex-flow: row nowrap;
+                    overflow-x: scroll;
+                    overflow-y: hidden;
+                    top: 0;
+                    left: 0;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    display: flex;
+                }
+
+                .sideBar::-webkit-scrollbar {
+                  display: none;
+                }
+
+                .sideBar {
+                    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+                    scrollbar-width: none; /* 파이어폭스 */
+                }
+
+                .unit {
+                    transform: rotate(0deg);
+                    margin: 0 !important;
+                    height: 80px;
+                    min-height: 80px;
+                    width: 82px;
+                    min-width: 82px;
+                    position: relative;
+                    background-size: cover;
+                    position: relative;
+                }
+
+                .deactive {
+                    filter: grayscale(1) brightness(.3);
+                    pointer-events: none;
+                }
+
+                .active::after {
+                    content: "";
+                    position: fixed;
+                    top: 0; /* unit 바로 아래 */
+                    left: 0;
+                    width: 100%;   /* 원하는 크기 */
+                    height: 100%;
+                    background-image: url("./resource/image/frame.webp");
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    pointer-events: none; /* 마우스 이벤트 무시 */
+                }
+
+                .unit:hover::after {
+                    content: "";
+                    position: fixed;
+                    top: 0; /* unit 바로 아래 */
+                    left: 0;
+                    width: 100%;   /* 원하는 크기 */
+                    height: 100%;
+                    background-image: url("./resource/image/frame.webp");
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    pointer-events: none; /* 마우스 이벤트 무시 */
+                }
+            </style>
+        `;
     }
     /**
      *
@@ -246,7 +333,9 @@ class Aside extends DomObject {
         this.initDom();
         this.displayContent("#root");
         this.showAgentList(agentList);
-        this.addEventer("#searchInput", "input", (e) => { this.filterAgentList(e, agentList); });
+        if (window.innerWidth > 800) {
+            this.addEventer("#searchInput", "input", (e) => { this.filterAgentList(e, agentList); });
+        }
         agentList.forEach((list) => {
             this.addEventer(`#agentList${list.id}`, "click", () => { this.activeAgentList(list); });
         });

@@ -52,7 +52,31 @@ class Section extends DomObject {
             </section>
         `;
 
-        this.contentsMobile = ``;
+        this.contentsMobile = `
+            <section class="sectionWrap" id="sectionWrap">
+                <div class="agentStand" id="agentStand"></div>
+                <article class="agentCard">
+                    <div class="cardPercent">
+                        <div class="cardWrap">
+                            <div class="card">
+                                <div class="cardChild" id="cardChild">
+                                    <p class="resultPoint" id="resultPoint">100</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="percent">
+                            <div class="progress-bg">
+                                <div class="progress-bar" id="progress-bar"></div>
+                            </div>
+                        </div>
+                        <div class="abilityBoard">
+                            <p class="initBoard" id="initBoard">에이전트를 먼저 선택해주세요</p>
+                            <form id="agentAbilityForm"></from>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        `;
         this.stylePc = `<style>
             .sectionWrap {
                 position: absolute;
@@ -148,7 +172,9 @@ class Section extends DomObject {
                 height: 100%;
                 width: 100%;
                 color: white;
-                background: #FDAF33;
+                background: #383838;
+                background-size: 28.32px 28.32px;
+                animation: moveStripes 15s linear infinite; 
             }
 
             .progress-bar {
@@ -202,7 +228,7 @@ class Section extends DomObject {
 
             .abilityBoard {
                 position: absolute;
-                width: 870px;
+                width: 900px;
                 height: auto;
                 top: 0;
                 left: 40px;
@@ -214,7 +240,7 @@ class Section extends DomObject {
                 border: 10px solid #999999;
                 border-bottom-left-radius: 15px;
                 border-bottom-right-radius: 15px;
-                padding: 15px 15px;
+                padding: 15px 0;
             }
 
             .abilityBoard > p {
@@ -234,7 +260,7 @@ class Section extends DomObject {
             }
 
             .inputWrap {
-                width: 230px;
+                width: 240px;
                 color: white;
                 font-size: 1rem;
                 background-color: #000000;
@@ -245,7 +271,8 @@ class Section extends DomObject {
                 justify-content: space-between;
                 align-items: center;
                 font-family: 'GmarketSansMedium';
-                margin-left: 20px;
+                margin-left: 10px;
+                margin-right: 10px;
             }
 
             .inputWrap > input {
@@ -285,6 +312,232 @@ class Section extends DomObject {
                 font-size: 2.5rem;
                 color: #15B9FB;
                 margin-right: 15px;
+                letter-spacing: 1px;
+            }
+        </style>`;
+
+        this.styleMobile = `<style>
+            .sectionWrap {
+                position: relative;
+                width: 350px;
+                height: auto;
+                top: 188px;
+                left: 50%;
+                margin-left: -175px;
+            }
+
+            .agentStand {
+                width: auto;
+                height: 463px;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+
+            .agentCard {
+                position: relative;
+                width: 100%;
+                height: 100%
+            }
+
+            .cardPercent {
+                width: 100%;
+                height: 100px;
+            }
+
+            .cardWrap {
+                width: 100px;
+                height: 100px;
+                background: linear-gradient(to right, #FDCE4C, #FDAF33);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                position: absolute;
+                z-index: 100;
+                top: -30px;
+            }
+
+            .card {
+                width: 80%;
+                height: 80%;
+                background-color: #131413; 
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;
+                border-radius: 50%;
+            }
+
+            .cardChild {
+                width: 100%;
+                height: 100%;
+                display: flex;           
+                align-items: center;
+                justify-content: center;
+            }
+
+            .cardChild > p {
+            }
+
+            .cardAgentImage {
+                background-size: cover;
+                background-position: center;
+                width: 120%;
+                height: 100%;
+                margin-left: -10%;
+            }
+
+            .percent {
+                display: inline-flex;
+                width: 100%;
+                height: 30px;
+                background-color: #343A40;
+            }
+
+            .progress-bg {
+                height: 100%;
+                width: 100%;
+                color: white;
+                background: #383838;
+                background-size: 28.32px 28.32px;
+                animation: moveStripes 15s linear infinite; 
+            }
+
+            .progress-bar {
+                width: 0;
+                height: 100%;
+                transition: width 1s ease;
+
+                /* 기본 배경색 + 스트라이프 패턴 */
+                background: 
+                  repeating-linear-gradient(
+                    135deg,               /* 스트라이프 각도 */
+                    rgba(255,255,255,0.2) 0px,
+                    rgba(255,255,255,0.2) 10px,
+                    transparent 10px,
+                    transparent 20px
+                  ),
+                  #FC1415; 
+
+                /* 스트라이프 애니메이션 */
+                background-size: 28.32px 28.32px;
+                animation: moveStripes 15s linear infinite;
+            }
+
+            .pointWrap {
+                width: 174px;
+                height: 80px;
+                position: absolute;
+                top: -50%;
+                margin-top: 30px;
+                right: 0;
+                background: linear-gradient(to bottom right, #B3B3B3, #999999);
+                clip-path: polygon(30px 0, 100% 0, 100% 100%, 0 100%);
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .pointBoard {
+                width: 144px;
+                height: 60px;
+                margin-left: 5px;
+                background: linear-gradient(to bottom right, #0C0C0C, #0E0E0E);
+                clip-path: polygon(22px 0, 100% 0, 100% 100%, 0 100%);
+                border-top-right-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+            }
+
+            .abilityBoard {
+                position: absolute;
+                width: 900px;
+                height: auto;
+                top: 0;
+                left: 40px;
+                background-color: rgba(35, 34, 34, 1);
+                background-image: url("./resource/image/boardBackground.png");
+                background-size: cover;
+                background-repeat: no-repeat;
+                z-index: -100;
+                border: 10px solid #999999;
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+                padding: 15px 0;
+            }
+
+            .abilityBoard > p {
+                margin-top: 35px;
+                margin-left: 215px;
+                color: rgb(255, 255, 255);
+                filter: grayscale(1) brightness(.6);
+                font-size: 1.8rem;
+            }
+
+            .abilityBoard > form {
+                width: 100%;
+                display: flex;
+                justify-content: flex-start;
+                margin-top: 45px;
+                flex-wrap: wrap;
+            }
+
+            .inputWrap {
+                width: 240px;
+                color: white;
+                font-size: 1rem;
+                background-color: #000000;
+                border-radius: 30px;
+                margin-bottom: 10px;
+                padding: 10px 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-family: 'GmarketSansMedium';
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+
+            .inputWrap > input {
+                width: 100px;
+                text-align: right;
+                height: 100%;
+                background-color: black;
+                border: none;
+                outline: none;
+                font-size: 1rem;
+                font-family: "zenless";
+            }
+
+            .inputWrap > span {
+                font-size: 1rem;
+                font-family: "zenless";
+            }
+
+            .inputWrap > p {
+                font-size: 1rem;
+                font-family: "zenless";
+            }
+
+            .inputWrap > p: last-child {
+                width: 45px;
+            }
+
+            .normal {
+                color: white;
+            }
+
+            .point {
+                color: #FFAF2A;
+            }
+
+            .resultPoint {
+                font-size: 1.8rem;
+                color: #15B9FB;
                 letter-spacing: 1px;
             }
         </style>`;
@@ -346,12 +599,15 @@ class Section extends DomObject {
             const validAbilities = agentObj.ability.filter((abilityObj:any) => abilityObj.valid);
 
             validAbilities.forEach((abilityObj:any) => {
+
                 const key = Object.keys(abilityObj)[0];
                 const agentValue = abilityObj.amount;
                 const inputValue = abilityData[key];
             
                 abilityArr.push( { name: key, user: inputValue, standard: agentValue } );
+                
             });
+
 
             abilityArr.forEach( ( abilityList ) => {
                 switch( abilityList.name ) {
@@ -365,8 +621,9 @@ class Section extends DomObject {
 
             let result = Math.floor((sumPoint / abilityArr.length) * 100);
 
-            document.getElementById("resultPoint")!.innerText = String(result);
+            document.getElementById("resultPoint")!.innerText = String( result > 100 ? 100 : result );
             document.getElementById("progress-bar")!.style.width = `${ result > 100 ? 100 : result }%`;
+
         }
 
 
