@@ -44,7 +44,13 @@ class Section extends DomObject {
                             </div>
                         </div>
                         <div class="abilityBoard">
-                            <p class="initBoard" id="initBoard">에이전트를 먼저 선택해주세요</p>
+                            <div class="agentStateWrap">
+                                <p class="initBoard" id="initBoard">에이전트를 먼저 선택해주세요</p>
+                                <div class="btnWrap">
+                                    <button>보통</button>
+                                    <button>종결</button>
+                                </div>
+                            </div>
                             <form id="agentAbilityForm"></from>
                         </div>
                     </div>
@@ -243,12 +249,60 @@ class Section extends DomObject {
                 padding: 15px 0;
             }
 
-            .abilityBoard > p {
+            .abilityBoard > .agentStateWrap {
+                display: flex;
+                padding-right: 30px;
+                justify-content: space-between;
+                align-items: center;
                 margin-top: 35px;
-                margin-left: 215px;
+                margin-left: 215px;   
+            }
+
+            .agentStateWrap > p {
                 color: rgb(255, 255, 255);
                 filter: grayscale(1) brightness(.6);
                 font-size: 1.8rem;
+            }
+
+            .btnWrap {
+                display: flex;
+                width: 200px;
+                position: relative;
+                z-index: 100;
+            }
+
+            .btnWrap > button:first-child {
+                box-sizing: border-box;
+                background: linear-gradient(to right, #FDCE4C, #FDAF33);
+                width: 100px;
+                height: 50px;
+                border-left: 3px solid #383838;
+                border-top: 3px solid #383838;
+                border-bottom: 3px solid #383838;
+                border-top-left-radius: 50px;
+                border-bottom-left-radius: 50px;
+                color: #272725;
+                font-size: 1.2rem;
+                border-right: none;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            .btnWrap > button:nth-child(2) {
+                box-sizing: border-box;
+                background-color: rgba(35, 34, 34, 1);
+                border-right: 3px solid #383838;
+                border-top: 3px solid #383838;
+                border-bottom: 3px solid #383838;
+                border-left: none;
+                width: 100px;
+                height: 50px;
+                border-top-right-radius: 50px;
+                border-bottom-right-radius: 50px;
+                color: white;
+                font-size: 1.2rem;
+                font-weight: bold;
+                cursor: pointer;
             }
 
             .abilityBoard > form {

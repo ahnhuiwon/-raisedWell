@@ -1,5 +1,5 @@
 const agentList = [
-    { id: 0, engName: "yuzuha", korName: "우키나미 유즈하", image: "yuzuha", ability: [
+    { id: 0, engName: "yuzuha", korName: "우키나미 유즈하", image: "yuzuha", type: "지원", ability: [
         { "HP" : "", valid : false, amount: 0 },
         { "공격력" : "", valid : true, amount: 3000 },
         { "방어력" : "", valid : false, amount: 0 },
@@ -11,7 +11,7 @@ const agentList = [
         { "관통률" : "", valid : false, amount: 0 },
         { "에너지 자동 회복" : "", valid : false, amount: 0 }
     ]},
-    { id: 1, engName: "jufufu", korName: "귤복복", image: "jufufu", ability: [
+    { id: 1, engName: "jufufu", korName: "귤복복", image: "jufufu",  type: "격파", ability: [
         { "HP" : "", valid : false, amount: 0 },
         { "공격력" : "", valid : true, amount: 3400 },
         { "방어력" : "", valid : false, amount: 0 },
@@ -23,7 +23,7 @@ const agentList = [
         { "관통률" : "", valid : false, amount: 0 },
         { "에너지 자동 회복" : "", valid : false, amount: 0 }
     ]},
-    { id: 2, engName: "yixuan", korName: "의현", image: "yixuan", ability: [
+    { id: 2, engName: "yixuan", korName: "의현", image: "yixuan", type: "명파", ability: [
         { "HP" : "", valid : false, amount: 0 },
         { "공격력" : "", valid : false, amount: 0 },
         { "방어력" : "", valid : false, amount: 0 },
@@ -34,8 +34,19 @@ const agentList = [
         { "이상 마스터리" : "", valid : false, amount: 0 },
         { "관입력" : "", valid : true, amount: 2300 },
         { "기운 자동 누적" : "", valid : false, amount: 0 }
+    ], endAbility: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : false, amount: 0 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : true, amount: 58 },
+        { "치명타 피해" : "", valid : true, amount: 180 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : false, amount: 0 },
+        { "관입력" : "", valid : true, amount: 2400 },
+        { "기운 자동 누적" : "", valid : false, amount: 0 }
     ]},
-    { id: 3, engName: "hugo", korName: "휴고 블라드", image: "hugo", ability: [
+    { id: 3, engName: "hugo", korName: "휴고 블라드", image: "hugo", type: "강공", ability: [
         { "HP" : "", valid : false, amount: 0 },
         { "공격력" : "", valid : true, amount: 2700 },
         { "방어력" : "", valid : false, amount: 0 },
@@ -46,8 +57,19 @@ const agentList = [
         { "이상 마스터리" : "", valid : false, amount: 0 },
         { "관통률" : "", valid : false, amount: 0 },
         { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ], endAbility: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 3000 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : true, amount: 88 },
+        { "치명타 피해" : "", valid : true, amount: 150 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : false, amount: 0 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
     ]},
-    { id: 4, engName: "vivian", korName: "비비안 밴시", image: "vivian", ability: [
+    { id: 4, engName: "vivian", korName: "비비안 밴시", image: "vivian", type: "이상", ability: [
         { "HP" : "", valid : false, amount: 0 },
         { "공격력" : "", valid : true, amount: 2100 },
         { "방어력" : "", valid : false, amount: 0 },
@@ -58,128 +80,7 @@ const agentList = [
         { "이상 마스터리" : "", valid : true, amount: 390 },
         { "관통률" : "", valid : false, amount: 0 },
         { "에너지 자동 회복" : "", valid : false, amount: 0 }
-    ]},
-    { id: 5, engName: "trigger", korName: "트리거", image: "trigger", ability: [
-        { "HP" : "", valid : false, amount: 0 },
-        { "공격력" : "", valid : true, amount: 2000 },
-        { "방어력" : "", valid : false, amount: 0 },
-        { "충격력" : "", valid : true, amount: 160 },
-        { "치명타 확률" : "", valid : true, amount: 78 },
-        { "치명타 피해" : "", valid : true, amount: 100 },
-        { "이상 장악력" : "", valid : false, amount: 0 },
-        { "이상 마스터리" : "", valid : false, amount: 0 },
-        { "관통률" : "", valid : false, amount: 0 },
-        { "에너지 자동 회복" : "", valid : false, amount: 0 }
-    ]},
-    { id: 6, engName: "0-anby", korName: "0호-앤비", image: "0-anby", ability: [
-        { "HP" : "", valid : false, amount: 0 },
-        { "공격력" : "", valid : true, amount: 3200 },
-        { "방어력" : "", valid : false, amount: 0 },
-        { "충격력" : "", valid : false, amount: 0 },
-        { "치명타 확률" : "", valid : true, amount: 78 },
-        { "치명타 피해" : "", valid : true, amount: 140 },
-        { "이상 장악력" : "", valid : false, amount: 0 },
-        { "이상 마스터리" : "", valid : false, amount: 0 },
-        { "관통률" : "", valid : false, amount: 0 },
-        { "에너지 자동 회복" : "", valid : false, amount: 0 }
-    ]},
-    { id: 7, engName: "evelyn", korName: "이블린 슈발리에", image: "evelyn", ability: [
-        { "HP" : "", valid : false, amount: 0 },
-        { "공격력" : "", valid : true, amount: 2800 },
-        { "방어력" : "", valid : false, amount: 0 },
-        { "충격력" : "", valid : false, amount: 0 },
-        { "치명타 확률" : "", valid : true, amount: 75 },
-        { "치명타 피해" : "", valid : true, amount: 150 },
-        { "이상 장악력" : "", valid : false, amount: 0 },
-        { "이상 마스터리" : "", valid : false, amount: 0 },
-        { "관통률" : "", valid : false, amount: 0 },
-        { "에너지 자동 회복" : "", valid : false, amount: 0 }
-    ]},
-    { id: 8, engName: "astra", korName: "아스트라 야오", image: "astra", ability: [
-        { "HP" : "", valid : false, amount: 0 },
-        { "공격력" : "", valid : true, amount: 3429 },
-        { "방어력" : "", valid : false, amount: 0 },
-        { "충격력" : "", valid : false, amount: 0 },
-        { "치명타 확률" : "", valid : false, amount: 0 },
-        { "치명타 피해" : "", valid : false, amount: 0 },
-        { "이상 장악력" : "", valid : false, amount: 0 },
-        { "이상 마스터리" : "", valid : false, amount: 0 },
-        { "관통률" : "", valid : false, amount: 0 },
-        { "에너지 자동 회복" : "", valid : false, amount: 0 }
-    ]},
-    { id: 9, engName: "harumasa", korName: "아사바 하루마사", image: "harumasa", ability: [
-        { "HP" : "", valid : false, amount: 0 },
-        { "공격력" : "", valid : true, amount: 3000 },
-        { "방어력" : "", valid : false, amount: 0 },
-        { "충격력" : "", valid : false, amount: 0 },
-        { "치명타 확률" : "", valid : true, amount: 75 },
-        { "치명타 피해" : "", valid : true, amount: 140 },
-        { "이상 장악력" : "", valid : false, amount: 0 },
-        { "이상 마스터리" : "", valid : false, amount: 0 },
-        { "관통률" : "", valid : false, amount: 0 },
-        { "에너지 자동 회복" : "", valid : false, amount: 0 }
-    ]},
-    { id: 10, engName: "miyabi", korName: "호시미 미야비", image: "miyabi", ability: [
-        { "HP" : "", valid : false, amount: 0 },
-        { "공격력" : "", valid : true, amount: 2500 },
-        { "방어력" : "", valid : false, amount: 0 },
-        { "충격력" : "", valid : false, amount: 0 },
-        { "치명타 확률" : "", valid : true, amount: 87 },
-        { "치명타 피해" : "", valid : true, amount: 120 },
-        { "이상 장악력" : "", valid : false, amount: 0 },
-        { "이상 마스터리" : "", valid : false, amount: 0 },
-        { "관통률" : "", valid : false, amount: 0 },
-        { "에너지 자동 회복" : "", valid : false, amount: 0 }
-    ] },
-    { id: 11, engName: "lighter", korName: "라이터", image: "lighter", ability: [
-        { "HP" : "", valid : false, amount: 0 },
-        { "공격력" : "", valid : false, amount: 0 },
-        { "방어력" : "", valid : false, amount: 0 },
-        { "충격력" : "", valid : false, amount: 0 },
-        { "치명타 확률" : "", valid : true, amount: 50 },
-        { "치명타 피해" : "", valid : true, amount: 100 },
-        { "이상 장악력" : "", valid : false, amount: 0 },
-        { "이상 마스터리" : "", valid : false, amount: 0 },
-        { "관통률" : "", valid : false, amount: 0 },
-        { "에너지 자동 회복" : "", valid : false, amount: 0 }
-    ]},
-    { id: 12, engName: "yanagi", korName: "츠키시로 야나기", image: "yanagi", ability: [
-        { "HP" : "", valid : false, amount: 0 },
-        { "공격력" : "", valid : true, amount: 2600 },
-        { "방어력" : "", valid : false, amount: 0 },
-        { "충격력" : "", valid : false, amount: 0 },
-        { "치명타 확률" : "", valid : false, amount: 0 },
-        { "치명타 피해" : "", valid : false, amount: 0 },
-        { "이상 장악력" : "", valid : false, amount: 0 },
-        { "이상 마스터리" : "", valid : true, amount: 375 },
-        { "관통률" : "", valid : false, amount: 0 },
-        { "에너지 자동 회복" : "", valid : false, amount: 0 }
-    ]},
-    { id: 13, engName: "burnice", korName: "버니스 화이트", image: "burnice", ability: [
-        { "HP" : "", valid : false, amount: 0 },
-        { "공격력" : "", valid : true, amount: 2800 },
-        { "방어력" : "", valid : false, amount: 0 },
-        { "충격력" : "", valid : false, amount: 0 },
-        { "치명타 확률" : "", valid : false, amount: 0 },
-        { "치명타 피해" : "", valid : false, amount: 0 },
-        { "이상 장악력" : "", valid : false, amount: 0 },
-        { "이상 마스터리" : "", valid : true, amount: 300 },
-        { "관통률" : "", valid : false, amount: 0 },
-        { "에너지 자동 회복" : "", valid : false, amount: 0 }
-    ]},
-    { id: 14, engName: "caesar", korName: "카이사르 킹", image: "caesar", ability: [
-        { "HP" : "", valid : false, amount: 0 },
-        { "공격력" : "", valid : true, amount: 2000 },
-        { "방어력" : "", valid : false, amount: 0 },
-        { "충격력" : "", valid : false, amount: 0 },
-        { "치명타 확률" : "", valid : false, amount: 0 },
-        { "치명타 피해" : "", valid : false, amount: 0 },
-        { "이상 장악력" : "", valid : false, amount: 0 },
-        { "이상 마스터리" : "", valid : true, amount: 300 },
-        { "관통률" : "", valid : false, amount: 0 },
-        { "에너지 자동 회복" : "", valid : false, amount: 0 }
-    ]},
-    { id: 15, engName: "jane", korName: "제인 도", image: "jane", ability: [
+    ], endAbility: [
         { "HP" : "", valid : false, amount: 0 },
         { "공격력" : "", valid : true, amount: 2400 },
         { "방어력" : "", valid : false, amount: 0 },
@@ -191,7 +92,134 @@ const agentList = [
         { "관통률" : "", valid : false, amount: 0 },
         { "에너지 자동 회복" : "", valid : false, amount: 0 }
     ]},
-    { id: 16, engName: "qingyi", korName: "청의", image: "qingyi", ability: [
+    { id: 5, engName: "trigger", korName: "트리거", image: "trigger", type: "격파", ability: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 2000 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : true, amount: 160 },
+        { "치명타 확률" : "", valid : true, amount: 78 },
+        { "치명타 피해" : "", valid : true, amount: 100 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : false, amount: 0 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ], endAbility: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 2300 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : true, amount: 160 },
+        { "치명타 확률" : "", valid : true, amount: 78 },
+        { "치명타 피해" : "", valid : true, amount: 130 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : false, amount: 0 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ]},
+    { id: 6, engName: "0-anby", korName: "0호-앤비", image: "0-anby", type: "강공", ability: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 3000 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : true, amount: 78 },
+        { "치명타 피해" : "", valid : true, amount: 140 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : false, amount: 0 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ], endAbility: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 3000 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : true, amount: 78 },
+        { "치명타 피해" : "", valid : true, amount: 180 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : false, amount: 0 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ]},
+    { id: 7, engName: "evelyn", korName: "이블린 슈발리에", image: "evelyn", type: "강공", ability: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 2800 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : true, amount: 75 },
+        { "치명타 피해" : "", valid : true, amount: 150 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : false, amount: 0 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ], endAbility: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 2800 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : true, amount: 75 },
+        { "치명타 피해" : "", valid : true, amount: 180 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : false, amount: 0 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ]},
+    { id: 8, engName: "astra", korName: "아스트라 야오", image: "astra", type: "지원", ability: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 3429 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : false, amount: 0 },
+        { "치명타 피해" : "", valid : false, amount: 0 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : false, amount: 0 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ]},
+    { id: 9, engName: "harumasa", korName: "아사바 하루마사", image: "harumasa", type: "강공" ,ability: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 3000 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : true, amount: 75 },
+        { "치명타 피해" : "", valid : true, amount: 140 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : false, amount: 0 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ], endAbility: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 3200 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : true, amount: 55 },
+        { "치명타 피해" : "", valid : true, amount: 220 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : false, amount: 0 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ]},
+    { id: 10, engName: "miyabi", korName: "호시미 미야비", image: "miyabi", type: "이상", ability: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 2500 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : true, amount: 87 },
+        { "치명타 피해" : "", valid : true, amount: 120 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : false, amount: 0 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ], endAbility: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 2800 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : true, amount: 72 },
+        { "치명타 피해" : "", valid : true, amount: 200 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : false, amount: 0 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ]},
+    { id: 11, engName: "lighter", korName: "라이터", image: "lighter", type: "격파", ability: [
         { "HP" : "", valid : false, amount: 0 },
         { "공격력" : "", valid : false, amount: 0 },
         { "방어력" : "", valid : false, amount: 0 },
@@ -203,7 +231,100 @@ const agentList = [
         { "관통률" : "", valid : false, amount: 0 },
         { "에너지 자동 회복" : "", valid : false, amount: 0 }
     ]},
-    { id: 17, engName: "zhuyuan", korName: "주연", image: "zhuyuan", ability: [
+    { id: 12, engName: "yanagi", korName: "츠키시로 야나기", image: "yanagi", type: "이상", ability: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 2600 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : false, amount: 0 },
+        { "치명타 피해" : "", valid : false, amount: 0 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : true, amount: 375 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ], endAbility: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 2600 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : false, amount: 0 },
+        { "치명타 피해" : "", valid : false, amount: 0 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : true, amount: 450 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ]},
+    { id: 13, engName: "burnice", korName: "버니스 화이트", image: "burnice", type: "이상", ability: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 2800 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : false, amount: 0 },
+        { "치명타 피해" : "", valid : false, amount: 0 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : true, amount: 300 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ], endAbility: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 3000 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : false, amount: 0 },
+        { "치명타 피해" : "", valid : false, amount: 0 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : true, amount: 350 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ]},
+    { id: 14, engName: "caesar", korName: "카이사르 킹", image: "caesar", type: "방어", ability: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 2000 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : false, amount: 0 },
+        { "치명타 피해" : "", valid : false, amount: 0 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : true, amount: 300 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ]},
+    { id: 15, engName: "jane", korName: "제인 도", image: "jane", type: "이상", ability: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 2400 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : false, amount: 0 },
+        { "치명타 피해" : "", valid : false, amount: 0 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : true, amount: 420 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ], endAbility: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 3000 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : false, amount: 0 },
+        { "치명타 피해" : "", valid : false, amount: 0 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : true, amount: 420 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ]},
+    { id: 16, engName: "qingyi", korName: "청의", image: "qingyi", type: "격파", ability: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : false, amount: 0 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : true, amount: 50 },
+        { "치명타 피해" : "", valid : true, amount: 100 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : false, amount: 0 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ]},
+    { id: 17, engName: "zhuyuan", korName: "주연", image: "zhuyuan", type: "이상", ability: [
         { "HP" : "", valid : false, amount: 0 },
         { "공격력" : "", valid : true, amount: 2800 },
         { "방어력" : "", valid : false, amount: 0 },
@@ -215,13 +336,96 @@ const agentList = [
         { "관통률" : "", valid : false, amount: 0 },
         { "에너지 자동 회복" : "", valid : false, amount: 0 }
     ]},
-    { id: 18, engName: "ellenjoe", korName: "엘렌 조", image: "ellenjoe", ability: [
+    { id: 18, engName: "ellenjoe", korName: "엘렌 조", image: "ellenjoe", type: "강공", ability: [
         { "HP" : "", valid : false, amount: 0 },
         { "공격력" : "", valid : true, amount: 2800 },
         { "방어력" : "", valid : false, amount: 0 },
         { "충격력" : "", valid : false, amount: 0 },
         { "치명타 확률" : "", valid : true, amount: 75 },
         { "치명타 피해" : "", valid : true, amount: 140 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : false, amount: 0 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ], endAbility: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 3200 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : true, amount: 68 },
+        { "치명타 피해" : "", valid : true, amount: 200 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : false, amount: 0 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ]},
+    { id: 19, engName: "alexandrina", korName: "알렉산드리나 세바스티안", image: "alexandrina", type: "지원", ability: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 2000 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : false, amount: 0 },
+        { "치명타 피해" : "", valid : false, amount: 0 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : true, amount: 200 },
+        { "관통률" : "", valid : true, amount: 72 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ]},
+    { id: 20, engName: "lycaon", korName: "본 리카온", image: "lycaon", type: "격파", ability: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 2800 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : true, amount: 50 },
+        { "치명타 피해" : "", valid : true, amount: 100 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : false, amount: 0 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ]},
+    { id: 21, engName: "koleda", korName: "콜레다 벨로보그", image: "koleda", type: "격파", ability: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : false, amount: 0 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : true, amount: 50 },
+        { "치명타 피해" : "", valid : true, amount: 100 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : false, amount: 0 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ]},
+    { id: 22, engName: "grace", korName: "그레이스 하워드", image: "grace", type: "이상", ability: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 2400 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : false, amount: 0 },
+        { "치명타 피해" : "", valid : false, amount: 0 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : true, amount: 350 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ]},
+    { id: 23, engName: "nekomiya", korName: "네코미야 마나", image: "nekomiya", type: "강공", ability: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 2800 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : true, amount: 75 },
+        { "치명타 피해" : "", valid : true, amount: 150 },
+        { "이상 장악력" : "", valid : false, amount: 0 },
+        { "이상 마스터리" : "", valid : false, amount: 0 },
+        { "관통률" : "", valid : false, amount: 0 },
+        { "에너지 자동 회복" : "", valid : false, amount: 0 }
+    ]},
+    { id: 24, engName: "soldier11", korName: "11호", image: "soldier11", type: "강공", ability: [
+        { "HP" : "", valid : false, amount: 0 },
+        { "공격력" : "", valid : true, amount: 2800 },
+        { "방어력" : "", valid : false, amount: 0 },
+        { "충격력" : "", valid : false, amount: 0 },
+        { "치명타 확률" : "", valid : true, amount: 72 },
+        { "치명타 피해" : "", valid : true, amount: 150 },
         { "이상 장악력" : "", valid : false, amount: 0 },
         { "이상 마스터리" : "", valid : false, amount: 0 },
         { "관통률" : "", valid : false, amount: 0 },
