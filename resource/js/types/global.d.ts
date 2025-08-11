@@ -23,6 +23,7 @@ interface Agent {
   korName: string;
   image: string;
   ability: AbilityItem[];
+  endAbility?: AbilityItem[];
 }
 
 

@@ -42,12 +42,8 @@ class Section extends DomObject {
                             </div>
                         </div>
                         <div class="abilityBoard">
-                            <div class="agentStateWrap">
+                            <div class="agentStateWrap" id="agentStateWrap">
                                 <p class="initBoard" id="initBoard">에이전트를 먼저 선택해주세요</p>
-                                <div class="btnWrap">
-                                    <button>보통</button>
-                                    <button>종결</button>
-                                </div>
                             </div>
                             <form id="agentAbilityForm"></from>
                         </div>
@@ -124,6 +120,8 @@ class Section extends DomObject {
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
+                position: relative;
+                z-index: 100;
             }
 
             .card {
@@ -169,6 +167,7 @@ class Section extends DomObject {
                 /*background: linear-gradient(to right, #FDAF33, #FC1415);*/
                 background-color: #343A40;
                 transform: skew(-20deg);
+                z-index: 100;
             }
 
             .progress-bg {
@@ -215,6 +214,7 @@ class Section extends DomObject {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                z-index: 100;
             }
 
             .pointBoard {
@@ -239,7 +239,6 @@ class Section extends DomObject {
                 background-image: url("./resource/image/boardBackground.png");
                 background-size: cover;
                 background-repeat: no-repeat;
-                z-index: -100;
                 border: 10px solid #999999;
                 border-bottom-left-radius: 15px;
                 border-bottom-right-radius: 15px;
@@ -683,13 +682,26 @@ class Section extends DomObject {
             }
         };
         /**
-         * 에이전트 텍스트 변경 함수
+         * 에이전트 텍스트 변경 및 버튼 생성 함수
          *
          * @param { Object } agentParam 에이전트 정보
          */
         const chageAgentName = (agentParam) => {
-            const agentNameElement = document.getElementById("initBoard");
-            agentNameElement.innerText = `${agentParam.korName}`;
+            let htmlString = "";
+            const agentStateElement = document.getElementById("agentStateWrap");
+            if (!agentParam.endAbility) {
+                htmlString = `<p class="initBoard" id="initBoard">${agentParam.korName}</p>`;
+            }
+            else {
+                htmlString = `<p class="initBoard" id="initBoard">${agentParam.korName}</p>
+                              <div class="btnWrap">
+                                  <button id="normalBtn">보통</button>
+                                  <button id="endBtn">종결</button>
+                              </div>`;
+                agentStateElement.innerHTML = htmlString;
+                this.addEventer("#normalBtn", "click", () => { console.log("normal 호출"); });
+                this.addEventer("#endBtn", "click", () => { console.log("end 호출"); });
+            }
         };
         /**
          * 에이전트 능력치 Form 변경 함수
