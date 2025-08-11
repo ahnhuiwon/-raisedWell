@@ -85,7 +85,7 @@ class Header extends DomObject {
                 background-image: url(./resource/image/headerBackground.png);
                 background-repeat: no-repeat;
                 background-position: center;
-                padding: 20px 0 20px 0;
+                padding: 10px 0 10px 0;
                 border-bottom: 2px solid #8c9298;
                 position: fixed;
                 z-index: 1000;

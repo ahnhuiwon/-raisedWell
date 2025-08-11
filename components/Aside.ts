@@ -163,7 +163,7 @@ class Aside extends DomObject {
             <style>
                 .asideWrap {
                     position: fixed;
-                    top: 88px;
+                    top: 68px;
                     width: 100vw;
                     height: 100px;
                     background: #000;

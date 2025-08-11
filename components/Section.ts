@@ -321,7 +321,7 @@ class Section extends DomObject {
                 position: relative;
                 width: 350px;
                 height: auto;
-                top: 188px;
+                top: 168px;
                 left: 50%;
                 margin-left: -175px;
             }
@@ -337,14 +337,13 @@ class Section extends DomObject {
             .agentCard {
                 position: relative;
                 width: 100%;
-                margin-top: -100px;
+                margin-top: -130px;
                 min-height: 87.5px;
-                bottom: 30px;
             }
 
             .cardPercent {
-                width: 100%;
-                height: 100px;
+                height: auto;
+                padding-bottom: 30px;
             }
 
             .cardWrap {
@@ -393,7 +392,7 @@ class Section extends DomObject {
             .percent {
                 display: inline-flex;
                 width: calc(100% - 10px);
-                height: 30px;
+                height: 20px;
                 background-color: #343A40;
                 margin-left: 10px;
                 position: relative;
@@ -469,10 +468,10 @@ class Section extends DomObject {
             }
 
             .abilityBoard {
-                position: absolute;
+                position: relative;
                 width: calc(100% - 10px);
                 height: auto;
-                top: 0;
+                top: -10px;
                 left: 10px;
                 background-color: rgba(35, 34, 34, 1);
                 background-image: url(./resource/image/boardBackground.png);
@@ -481,10 +480,10 @@ class Section extends DomObject {
                 /* border: 10px solid #999999; */
                 border-bottom-left-radius: 15px;
                 border-bottom-right-radius: 15px;
+                padding-top: 15px;
             }
 
             .abilityBoard > p {
-                margin-top: 50px;
                 margin-left: 80px;
                 color: rgb(255, 255, 255);
                 filter: grayscale(1) brightness(.6);
@@ -506,7 +505,7 @@ class Section extends DomObject {
                 background-color: #000000;
                 border-radius: 30px;
                 margin-bottom: 10px;
-                padding: 10px 20px;
+                padding: 5px 20px;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -522,17 +521,17 @@ class Section extends DomObject {
                 background-color: black;
                 border: none;
                 outline: none;
-                font-size: 1rem;
+                font-size: 0.8rem;
                 font-family: "zenless";
             }
 
             .inputWrap > span {
-                font-size: 1rem;
+                font-size: 0.8rem;
                 font-family: "zenless";
             }
 
             .inputWrap > p {
-                font-size: 1rem;
+                font-size: 0.8rem;
                 font-family: "zenless";
             }
 
@@ -710,9 +709,11 @@ class Section extends DomObject {
                 if( abilityObj.valid ){
                     this.addEventer(`#ability${index}`, "input", () => { changeValue( agentObj ) });
 
-                    if( !initSet ) {
-                        document.getElementById(`ability${index}`)?.focus();
-                        initSet = true;
+                    if( window.innerWidth > 800 ){
+                        if( !initSet ) {
+                            document.getElementById(`ability${index}`)?.focus();
+                            initSet = true;
+                        }
                     }
                 }
             });
