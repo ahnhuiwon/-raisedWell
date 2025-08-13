@@ -272,7 +272,8 @@ class Section extends DomObject {
 
             .btnWrap > button:first-child {
                 box-sizing: border-box;
-                background: linear-gradient(to right, #FDCE4C, #FDAF33);
+                background-color: rgba(35, 34, 34, 1);
+                color: white;
                 width: 100px;
                 height: 50px;
                 border-left: 3px solid #383838;
@@ -280,7 +281,6 @@ class Section extends DomObject {
                 border-bottom: 3px solid #383838;
                 border-top-left-radius: 50px;
                 border-bottom-left-radius: 50px;
-                color: #272725;
                 font-size: 1.2rem;
                 border-right: none;
                 font-weight: bold;
@@ -302,6 +302,11 @@ class Section extends DomObject {
                 font-size: 1.2rem;
                 font-weight: bold;
                 cursor: pointer;
+            }
+
+            .btnWrap > .btnActive {
+                background: linear-gradient(to right, #FDCE4C, #FDAF33);
+                color: #272725 !important;
             }
 
             .abilityBoard > form {
@@ -726,6 +731,22 @@ class Section extends DomObject {
          */
         const chageAgentName = ( agentParam: Agent ) => {
 
+
+            const changeAgentMode = ( e: Event ) => {
+
+                const eventTarget = e.target as HTMLInputElement;
+                const wrapChildren = document.querySelectorAll('.btnWrap > *');
+
+                wrapChildren.forEach( child => {
+                    child.classList.remove("btnActive");
+                });
+
+                eventTarget.classList.add("btnActive");
+
+                changeAgentForm( agentParam, `${ eventTarget.name }` );
+
+            }
+
             let htmlString = "";
             const agentStateElement = document.getElementById("agentStateWrap") as HTMLDivElement;
 
@@ -734,14 +755,14 @@ class Section extends DomObject {
             } else {
                 htmlString = `<p class="initBoard" id="initBoard">${agentParam.korName}</p>
                               <div class="btnWrap">
-                                  <button id="normalBtn">보통</button>
-                                  <button id="endBtn">종결</button>
+                                  <button class="btnActive" id="normalBtn" name="normal">보통</button>
+                                  <button id="endBtn" name="end">종결</button>
                               </div>`;
 
                 agentStateElement.innerHTML = htmlString;
 
-                this.addEventer("#normalBtn", "click", () => { console.log("normal 호출") });
-                this.addEventer("#endBtn", "click", () => { console.log("end 호출") });
+                this.addEventer("#normalBtn", "click", (e) => { changeAgentMode( e ) });
+                this.addEventer("#endBtn", "click", (e) => { changeAgentMode( e ) });
 
             }
 
@@ -752,8 +773,9 @@ class Section extends DomObject {
          * 에이전트 능력치 Form 변경 함수
          * 
          * @param { Object } agentParam 에이전트 정보
+         * @param { String } agentParam 평균 / 종결 분기
          */
-        const changeAgentForm = ( agentParam: Agent ) => {
+        const changeAgentForm = ( agentParam: Agent, mode: string ) => {
 
             let htmlString = "";
             let initSet = false;
@@ -789,7 +811,7 @@ class Section extends DomObject {
 
         changeAgentImage( agentObj );
         chageAgentName( agentObj );
-        changeAgentForm( agentObj );
+        changeAgentForm( agentObj, "normal" );
         
     }
 
