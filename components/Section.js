@@ -626,6 +626,7 @@ class Section extends DomObject {
     resetBoard() {
         document.getElementById("progress-bar").style.width = "0";
         document.getElementById("resultPoint").innerText = "0";
+        document.getElementById("agentStateWrap").innerHTML = "";
     }
     /**
      * Board 업데이트
@@ -637,7 +638,7 @@ class Section extends DomObject {
          *
          * @param { Object } agentObj 에이전트 정보
          */
-        const changeValue = (agentObj) => {
+        const changeValue = (agentObj, mode) => {
             let sumPoint = 0;
             const abilityArr = [];
             const formElement = document.getElementById("agentAbilityForm");
@@ -649,10 +650,31 @@ class Section extends DomObject {
             const validAbilities = agentObj.ability.filter((abilityObj) => abilityObj.valid);
             validAbilities.forEach((abilityObj) => {
                 const key = Object.keys(abilityObj)[0];
-                const agentValue = abilityObj.amount;
+                const agentValue = mode === "normal" ? abilityObj.amount : abilityObj.endAmount;
                 const inputValue = abilityData[key];
                 abilityArr.push({ name: key, user: inputValue, standard: agentValue });
             });
+            const transformed = {};
+            validAbilities.forEach(item => {
+                const firstKey = Object.keys(item)[0];
+                const inputValue = abilityData[firstKey];
+                const rest = Object.assign(Object.assign({}, item), { user: inputValue });
+                delete rest[firstKey]; // 첫 번째 키 제거
+                transformed[firstKey] = rest;
+            });
+            switch (agentObj.korName) {
+                case "의현":
+                    const agentCalcObj = new CriticalAgentCalc("유저 입력 스펙");
+                    const userResultDamage = agentCalcObj.calcCriticalAgentDamage(Number(transformed["관입력"].user), Number(transformed["치명타 확률"].user), Number(transformed["치명타 피해"].user));
+                    const amountResultDamage = agentCalcObj.calcCriticalAgentDamage(Number(mode === "normal" ? transformed["관입력"].amount : transformed["관입력"].endAmount), Number(mode === "normal" ? transformed["치명타 확률"].amount : transformed["치명타 확률"].endAmount), Number(mode === "normal" ? transformed["치명타 피해"].amount : transformed["치명타 피해"].endAmount));
+                    let result = Math.floor((userResultDamage / amountResultDamage) * 100);
+                    console.log((userResultDamage / amountResultDamage) * 100);
+                    document.getElementById("resultPoint").innerText = String(result > 100 ? 100 : result);
+                    document.getElementById("progress-bar").style.width = `${result > 100 ? 100 : result}%`;
+                    break;
+                default:
+            }
+            return;
             abilityArr.forEach((abilityList) => {
                 switch (abilityList.name) {
                     case "치명타 확률":
@@ -703,8 +725,10 @@ class Section extends DomObject {
             };
             let htmlString = "";
             const agentStateElement = document.getElementById("agentStateWrap");
-            if (!agentParam.endAbility) {
+            const hasEndAmount = agentParam.ability.some(item => 'endAmount' in item);
+            if (!hasEndAmount) {
                 htmlString = `<p class="initBoard" id="initBoard">${agentParam.korName}</p>`;
+                agentStateElement.innerHTML = htmlString;
             }
             else {
                 htmlString = `<p class="initBoard" id="initBoard">${agentParam.korName}</p>
@@ -734,7 +758,7 @@ class Section extends DomObject {
                             <p>${Object.keys(abilityObj)[0]}</p>
                             <input tabindex="${(index + 1) * 10}" type="number" id="ability${index}" class="point" name="${Object.keys(abilityObj)[0]}" placeholder="0">
                             <span>/</span>
-                            <p>${abilityObj.amount}</p>
+                            <p>${mode === "normal" ? abilityObj.amount : abilityObj.endAmount}</p>
                         </div>`;
                 }
             });
@@ -742,7 +766,7 @@ class Section extends DomObject {
             agentObj.ability.forEach((abilityObj, index) => {
                 var _a;
                 if (abilityObj.valid) {
-                    this.addEventer(`#ability${index}`, "input", () => { changeValue(agentObj); });
+                    this.addEventer(`#ability${index}`, "input", () => { changeValue(agentObj, mode); });
                     if (window.innerWidth > 800) {
                         if (!initSet) {
                             (_a = document.getElementById(`ability${index}`)) === null || _a === void 0 ? void 0 : _a.focus();

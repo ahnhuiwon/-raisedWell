@@ -26,7 +26,7 @@ class CriticalAgentCalc extends Calculate {
 
         const baseDamage = this.calculateBaseDamage();
 
-        return baseDamage * Number( ( 1+ criticalRate * criticalDamage ) );
+        return baseDamage * Number( ( 1 + criticalRate * criticalDamage ) );
 
     }
 

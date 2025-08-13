@@ -23,7 +23,7 @@ class Aside extends DomObject {
             <div class="asideWrap" id="asideWrap">
                 <div class="searchWrap">
                     <i class="xi-search"></i>
-                    <input class="searchInput" id="searchInput" />
+                    <input class="searchInput" id="searchInput" placeholder="에이전트를 입력해주세요" />
                 </div>
                 <section class="sideBar" id="sideBar">
                 </section>

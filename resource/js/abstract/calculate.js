@@ -8,7 +8,7 @@ class Calculate {
     constructor(id) {
         this.id = id;
         this._attackPower = 0;
-        this._skillCoefficient = 1.5;
+        this._skillCoefficient = 1;
     }
     /**
      * 에이전트 공격력 설정
@@ -27,6 +27,6 @@ class Calculate {
         /**
          * 기본 DMG = 공격력 × 스킬계수
          */
-        return Number(this._attackPower * this._skillCoefficient);
+        return Number(this._attackPower) * Number(this._skillCoefficient);
     }
 }

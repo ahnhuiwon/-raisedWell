@@ -13,6 +13,8 @@ type AbilityName =
 type AbilityItem = {
   valid: boolean;
   amount: number;
+  endAmount?: number;
+  [key: string]: any;
 } & {
   [K in AbilityName]?: string; // 능력치 이름은 한 개만 옵니다
 };
@@ -23,7 +25,6 @@ interface Agent {
   korName: string;
   image: string;
   ability: AbilityItem[];
-  endAbility?: AbilityItem[];
 }
 
 
