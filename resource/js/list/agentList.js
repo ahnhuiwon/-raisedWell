@@ -1,6 +1,18 @@
 "use strict";
 const agentList = [
-    { id: 0, engName: "yuzuha", korName: "우키나미 유즈하", image: "yuzuha", type: "지원", ability: [
+    { id: 1, engName: "alice", korName: "앨리스 타임필드", image: "alice", type: "이상", ability: [
+            { "HP": "", valid: false, amount: 0, endAmount: 0 },
+            { "공격력": "", valid: true, amount: 2600, endAmount: 2800 },
+            { "방어력": "", valid: false, amount: 0, endAmount: 0 },
+            { "충격력": "", valid: false, amount: 0, endAmount: 0 },
+            { "치명타 확률": "", valid: false, amount: 0, endAmount: 0 },
+            { "치명타 피해": "", valid: false, amount: 0, endAmount: 0 },
+            { "이상 장악력": "", valid: false, amount: 190, endAmount: 190 },
+            { "이상 마스터리": "", valid: true, amount: 300, endAmount: 350 },
+            { "관통률": "", valid: false, amount: 0, endAmount: 0 },
+            { "에너지 자동 회복": "", valid: false, amount: 0, endAmount: 0 }
+        ] },
+    { id: 2, engName: "yuzuha", korName: "우키나미 유즈하", image: "yuzuha", type: "지원", ability: [
             { "HP": "", valid: false, amount: 0 },
             { "공격력": "", valid: true, amount: 3000 },
             { "방어력": "", valid: false, amount: 0 },
@@ -12,7 +24,7 @@ const agentList = [
             { "관통률": "", valid: false, amount: 0 },
             { "에너지 자동 회복": "", valid: false, amount: 0 }
         ] },
-    { id: 1, engName: "jufufu", korName: "귤복복", image: "jufufu", type: "격파", ability: [
+    { id: 3, engName: "jufufu", korName: "귤복복", image: "jufufu", type: "격파", ability: [
             { "HP": "", valid: false, amount: 0 },
             { "공격력": "", valid: true, amount: 3400 },
             { "방어력": "", valid: false, amount: 0 },
@@ -24,7 +36,7 @@ const agentList = [
             { "관통률": "", valid: false, amount: 0 },
             { "에너지 자동 회복": "", valid: false, amount: 0 }
         ] },
-    { id: 2, engName: "yixuan", korName: "의현", image: "yixuan", type: "명파", ability: [
+    { id: 4, engName: "yixuan", korName: "의현", image: "yixuan", type: "명파", ability: [
             { "HP": "", valid: false, amount: 0, endAmount: 0 },
             { "공격력": "", valid: false, amount: 0, endAmount: 0 },
             { "방어력": "", valid: false, amount: 0, endAmount: 0 },
@@ -36,7 +48,7 @@ const agentList = [
             { "관입력": "", valid: true, amount: 2300, endAmount: 2400 },
             { "기운 자동 누적": "", valid: false, amount: 0, endAmount: 0 }
         ] },
-    { id: 3, engName: "hugo", korName: "휴고 블라드", image: "hugo", type: "강공", ability: [
+    { id: 5, engName: "hugo", korName: "휴고 블라드", image: "hugo", type: "강공", ability: [
             { "HP": "", valid: false, amount: 0, endAmount: 0 },
             { "공격력": "", valid: true, amount: 2700, endAmount: 3000 },
             { "방어력": "", valid: false, amount: 0, endAmount: 0 },
@@ -48,7 +60,7 @@ const agentList = [
             { "관통률": "", valid: false, amount: 0, endAmount: 0 },
             { "에너지 자동 회복": "", valid: false, amount: 0, endAmount: 0 }
         ] },
-    { id: 4, engName: "vivian", korName: "비비안 밴시", image: "vivian", type: "이상", ability: [
+    { id: 6, engName: "vivian", korName: "비비안 밴시", image: "vivian", type: "이상", ability: [
             { "HP": "", valid: false, amount: 0, endAmount: 0 },
             { "공격력": "", valid: true, amount: 2100, endAmount: 2400 },
             { "방어력": "", valid: false, amount: 0, endAmount: 0 },
@@ -60,7 +72,7 @@ const agentList = [
             { "관통률": "", valid: false, amount: 0, endAmount: 0 },
             { "에너지 자동 회복": "", valid: false, amount: 0, endAmount: 0 }
         ] },
-    { id: 5, engName: "trigger", korName: "트리거", image: "trigger", type: "격파", ability: [
+    { id: 7, engName: "trigger", korName: "트리거", image: "trigger", type: "격파", ability: [
             { "HP": "", valid: false, amount: 0, endAmount: 0 },
             { "공격력": "", valid: true, amount: 2000, endAmount: 2300 },
             { "방어력": "", valid: false, amount: 0, endAmount: 0 },
@@ -72,7 +84,7 @@ const agentList = [
             { "관통률": "", valid: false, amount: 0, endAmount: 0 },
             { "에너지 자동 회복": "", valid: false, amount: 0, endAmount: 0 }
         ] },
-    { id: 6, engName: "0-anby", korName: "0호-앤비", image: "0-anby", type: "강공", ability: [
+    { id: 8, engName: "0-anby", korName: "0호-앤비", image: "0-anby", type: "강공", ability: [
             { "HP": "", valid: false, amount: 0, endAmount: 0 },
             { "공격력": "", valid: true, amount: 3000, endAmount: 3000 },
             { "방어력": "", valid: false, amount: 0, endAmount: 0 },
@@ -84,7 +96,7 @@ const agentList = [
             { "관통률": "", valid: false, amount: 0, endAmount: 0 },
             { "에너지 자동 회복": "", valid: false, amount: 0, endAmount: 0 }
         ] },
-    { id: 7, engName: "evelyn", korName: "이블린 슈발리에", image: "evelyn", type: "강공", ability: [
+    { id: 9, engName: "evelyn", korName: "이블린 슈발리에", image: "evelyn", type: "강공", ability: [
             { "HP": "", valid: false, amount: 0, endAmount: 0 },
             { "공격력": "", valid: true, amount: 2800, endAmount: 2800 },
             { "방어력": "", valid: false, amount: 0, endAmount: 0 },
@@ -96,7 +108,7 @@ const agentList = [
             { "관통률": "", valid: false, amount: 0, endAmount: 0 },
             { "에너지 자동 회복": "", valid: false, amount: 0, endAmount: 0 }
         ] },
-    { id: 8, engName: "astra", korName: "아스트라 야오", image: "astra", type: "지원", ability: [
+    { id: 10, engName: "astra", korName: "아스트라 야오", image: "astra", type: "지원", ability: [
             { "HP": "", valid: false, amount: 0 },
             { "공격력": "", valid: true, amount: 3429 },
             { "방어력": "", valid: false, amount: 0 },
@@ -108,7 +120,7 @@ const agentList = [
             { "관통률": "", valid: false, amount: 0 },
             { "에너지 자동 회복": "", valid: false, amount: 0 }
         ] },
-    { id: 9, engName: "harumasa", korName: "아사바 하루마사", image: "harumasa", type: "강공", ability: [
+    { id: 11, engName: "harumasa", korName: "아사바 하루마사", image: "harumasa", type: "강공", ability: [
             { "HP": "", valid: false, amount: 0 },
             { "공격력": "", valid: true, amount: 3200 },
             { "방어력": "", valid: false, amount: 0 },
@@ -120,7 +132,7 @@ const agentList = [
             { "관통률": "", valid: false, amount: 0 },
             { "에너지 자동 회복": "", valid: false, amount: 0 }
         ] },
-    { id: 10, engName: "miyabi", korName: "호시미 미야비", image: "miyabi", type: "이상", ability: [
+    { id: 12, engName: "miyabi", korName: "호시미 미야비", image: "miyabi", type: "이상", ability: [
             { "HP": "", valid: false, amount: 0, endAmount: 0 },
             { "공격력": "", valid: true, amount: 2500, endAmount: 2800 },
             { "방어력": "", valid: false, amount: 0, endAmount: 0 },
@@ -132,7 +144,7 @@ const agentList = [
             { "관통률": "", valid: false, amount: 0, endAmount: 0 },
             { "에너지 자동 회복": "", valid: false, amount: 0, endAmount: 0 }
         ] },
-    { id: 11, engName: "lighter", korName: "라이터", image: "lighter", type: "격파", ability: [
+    { id: 13, engName: "lighter", korName: "라이터", image: "lighter", type: "격파", ability: [
             { "HP": "", valid: false, amount: 0 },
             { "공격력": "", valid: false, amount: 0 },
             { "방어력": "", valid: false, amount: 0 },
@@ -144,7 +156,7 @@ const agentList = [
             { "관통률": "", valid: false, amount: 0 },
             { "에너지 자동 회복": "", valid: false, amount: 0 }
         ] },
-    { id: 12, engName: "yanagi", korName: "츠키시로 야나기", image: "yanagi", type: "이상", ability: [
+    { id: 14, engName: "yanagi", korName: "츠키시로 야나기", image: "yanagi", type: "이상", ability: [
             { "HP": "", valid: false, amount: 0, endAmount: 0 },
             { "공격력": "", valid: true, amount: 2600, endAmount: 2600 },
             { "방어력": "", valid: false, amount: 0, endAmount: 0 },
@@ -156,7 +168,7 @@ const agentList = [
             { "관통률": "", valid: false, amount: 0, endAmount: 0 },
             { "에너지 자동 회복": "", valid: false, amount: 0, endAmount: 0 }
         ] },
-    { id: 13, engName: "burnice", korName: "버니스 화이트", image: "burnice", type: "이상", ability: [
+    { id: 15, engName: "burnice", korName: "버니스 화이트", image: "burnice", type: "이상", ability: [
             { "HP": "", valid: false, amount: 0, endAmount: 0 },
             { "공격력": "", valid: true, amount: 2800, endAmount: 3000 },
             { "방어력": "", valid: false, amount: 0, endAmount: 0 },
@@ -168,7 +180,7 @@ const agentList = [
             { "관통률": "", valid: false, amount: 0, endAmount: 0 },
             { "에너지 자동 회복": "", valid: false, amount: 0, endAmount: 0 }
         ] },
-    { id: 14, engName: "caesar", korName: "카이사르 킹", image: "caesar", type: "방어", ability: [
+    { id: 16, engName: "caesar", korName: "카이사르 킹", image: "caesar", type: "방어", ability: [
             { "HP": "", valid: false, amount: 0 },
             { "공격력": "", valid: true, amount: 2000 },
             { "방어력": "", valid: false, amount: 0 },
@@ -180,7 +192,7 @@ const agentList = [
             { "관통률": "", valid: false, amount: 0 },
             { "에너지 자동 회복": "", valid: false, amount: 0 }
         ] },
-    { id: 15, engName: "jane", korName: "제인 도", image: "jane", type: "이상", ability: [
+    { id: 17, engName: "jane", korName: "제인 도", image: "jane", type: "이상", ability: [
             { "HP": "", valid: false, amount: 0, endAmount: 0 },
             { "공격력": "", valid: true, amount: 2400, endAmount: 3000 },
             { "방어력": "", valid: false, amount: 0, endAmount: 0 },
@@ -192,7 +204,7 @@ const agentList = [
             { "관통률": "", valid: false, amount: 0, endAmount: 0 },
             { "에너지 자동 회복": "", valid: false, amount: 0, endAmount: 0 }
         ] },
-    { id: 16, engName: "qingyi", korName: "청의", image: "qingyi", type: "격파", ability: [
+    { id: 18, engName: "qingyi", korName: "청의", image: "qingyi", type: "격파", ability: [
             { "HP": "", valid: false, amount: 0 },
             { "공격력": "", valid: false, amount: 0 },
             { "방어력": "", valid: false, amount: 0 },
@@ -204,7 +216,7 @@ const agentList = [
             { "관통률": "", valid: false, amount: 0 },
             { "에너지 자동 회복": "", valid: false, amount: 0 }
         ] },
-    { id: 17, engName: "zhuyuan", korName: "주연", image: "zhuyuan", type: "이상", ability: [
+    { id: 19, engName: "zhuyuan", korName: "주연", image: "zhuyuan", type: "이상", ability: [
             { "HP": "", valid: false, amount: 0 },
             { "공격력": "", valid: true, amount: 2800 },
             { "방어력": "", valid: false, amount: 0 },
@@ -216,7 +228,7 @@ const agentList = [
             { "관통률": "", valid: false, amount: 0 },
             { "에너지 자동 회복": "", valid: false, amount: 0 }
         ] },
-    { id: 18, engName: "ellenjoe", korName: "엘렌 조", image: "ellenjoe", type: "강공", ability: [
+    { id: 20, engName: "ellenjoe", korName: "엘렌 조", image: "ellenjoe", type: "강공", ability: [
             { "HP": "", valid: false, amount: 0, endAmount: 0 },
             { "공격력": "", valid: true, amount: 2800, endAmount: 3200 },
             { "방어력": "", valid: false, amount: 0, endAmount: 0 },
@@ -228,7 +240,7 @@ const agentList = [
             { "관통률": "", valid: false, amount: 0, endAmount: 0 },
             { "에너지 자동 회복": "", valid: false, amount: 0, endAmount: 0 }
         ] },
-    { id: 19, engName: "alexandrina", korName: "알렉산드리나 세바스티안", image: "alexandrina", type: "지원", ability: [
+    { id: 21, engName: "alexandrina", korName: "알렉산드리나 세바스티안", image: "alexandrina", type: "지원", ability: [
             { "HP": "", valid: false, amount: 0 },
             { "공격력": "", valid: true, amount: 2000 },
             { "방어력": "", valid: false, amount: 0 },
@@ -240,7 +252,7 @@ const agentList = [
             { "관통률": "", valid: true, amount: 72 },
             { "에너지 자동 회복": "", valid: false, amount: 0 }
         ] },
-    { id: 20, engName: "lycaon", korName: "본 리카온", image: "lycaon", type: "격파", ability: [
+    { id: 22, engName: "lycaon", korName: "본 리카온", image: "lycaon", type: "격파", ability: [
             { "HP": "", valid: false, amount: 0 },
             { "공격력": "", valid: true, amount: 2800 },
             { "방어력": "", valid: false, amount: 0 },
@@ -252,7 +264,7 @@ const agentList = [
             { "관통률": "", valid: false, amount: 0 },
             { "에너지 자동 회복": "", valid: false, amount: 0 }
         ] },
-    { id: 21, engName: "koleda", korName: "콜레다 벨로보그", image: "koleda", type: "격파", ability: [
+    { id: 23, engName: "koleda", korName: "콜레다 벨로보그", image: "koleda", type: "격파", ability: [
             { "HP": "", valid: false, amount: 0 },
             { "공격력": "", valid: false, amount: 0 },
             { "방어력": "", valid: false, amount: 0 },
@@ -264,7 +276,7 @@ const agentList = [
             { "관통률": "", valid: false, amount: 0 },
             { "에너지 자동 회복": "", valid: false, amount: 0 }
         ] },
-    { id: 22, engName: "grace", korName: "그레이스 하워드", image: "grace", type: "이상", ability: [
+    { id: 24, engName: "grace", korName: "그레이스 하워드", image: "grace", type: "이상", ability: [
             { "HP": "", valid: false, amount: 0 },
             { "공격력": "", valid: true, amount: 2400 },
             { "방어력": "", valid: false, amount: 0 },
@@ -276,7 +288,7 @@ const agentList = [
             { "관통률": "", valid: false, amount: 0 },
             { "에너지 자동 회복": "", valid: false, amount: 0 }
         ] },
-    { id: 23, engName: "nekomiya", korName: "네코미야 마나", image: "nekomiya", type: "강공", ability: [
+    { id: 25, engName: "nekomiya", korName: "네코미야 마나", image: "nekomiya", type: "강공", ability: [
             { "HP": "", valid: false, amount: 0 },
             { "공격력": "", valid: true, amount: 2800 },
             { "방어력": "", valid: false, amount: 0 },
@@ -288,7 +300,7 @@ const agentList = [
             { "관통률": "", valid: false, amount: 0 },
             { "에너지 자동 회복": "", valid: false, amount: 0 }
         ] },
-    { id: 24, engName: "soldier11", korName: "11호", image: "soldier11", type: "강공", ability: [
+    { id: 26, engName: "soldier11", korName: "11호", image: "soldier11", type: "강공", ability: [
             { "HP": "", valid: false, amount: 0 },
             { "공격력": "", valid: true, amount: 2800 },
             { "방어력": "", valid: false, amount: 0 },

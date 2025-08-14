@@ -69,7 +69,9 @@ class Section extends DomObject {
                             </div>
                         </div>
                         <div class="abilityBoard">
-                            <p class="initBoard" id="initBoard">에이전트를 먼저 선택해주세요</p>
+                            <div class="agentStateWrap" id="agentStateWrap">
+                                <p class="initBoard" id="initBoard">에이전트를 먼저 선택해주세요</p>
+                            </div>
                             <form id="agentAbilityForm"></from>
                         </div>
                     </div>
@@ -86,16 +88,16 @@ class Section extends DomObject {
             }
 
             .agentStand {
-                width: 400px;
+                width: 653px;
                 height: 653px;
                 position: absolute;
                 bottom: 0;
-                background-size: cover;
+                background-size: contain;
                 background-repeat: no-repeat;
                 background-position: center;
                 z-index: -200;
                 left: 50%;
-                margin-left: -200px;
+                margin-left: -326.5px;
             }
 
             .agentCard {
@@ -537,11 +539,65 @@ class Section extends DomObject {
                 padding-top: 15px;
             }
 
-            .abilityBoard > p {
+            .agentStateWrap {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-right: 10px;            
+                height: 30px;
+            }
+
+            .agentStateWrap > p {
                 margin-left: 80px;
                 color: rgb(255, 255, 255);
                 filter: grayscale(1) brightness(.6);
                 font-size: 1rem;
+            }
+
+            .btnWrap {
+                display: flex;
+                width: 100px;
+                position: relative;
+                z-index: 100;
+            }
+
+            .btnWrap > button:first-child {
+                box-sizing: border-box;
+                background-color: rgba(35, 34, 34, 1);
+                color: white;
+                width: 50px;
+                height: 30px;
+                border-left: 3px solid #383838;
+                border-top: 3px solid #383838;
+                border-bottom: 3px solid #383838;
+                border-top-left-radius: 50px;
+                border-bottom-left-radius: 50px;
+                font-size: 1rem;
+                border-right: none;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            .btnWrap > button:nth-child(2) {
+                box-sizing: border-box;
+                background-color: rgba(35, 34, 34, 1);
+                border-right: 3px solid #383838;
+                border-top: 3px solid #383838;
+                border-bottom: 3px solid #383838;
+                border-left: none;
+                width: 50px;
+                height: 30px;
+                border-top-right-radius: 50px;
+                border-bottom-right-radius: 50px;
+                color: white;
+                font-size: 1rem;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            .btnWrap > .btnActive {
+                background: linear-gradient(to right, #FDCE4C, #FDAF33);
+                color: #272725 !important;
             }
 
             .abilityBoard > form {
