@@ -1,7 +1,7 @@
 /**
  * 이상 에이전트 데미지 계산 상속 클래스
  */
-class anomallyAgentCalc extends Calculate {
+class AnomallyAgentCalc extends Calculate {
 
     constructor( id: string ) {
         super( id );

@@ -24,6 +24,7 @@ interface Agent {
   engName: string;
   korName: string;
   image: string;
+  type: string;
   ability: AbilityItem[];
 }
 

@@ -654,13 +654,13 @@ class Section extends DomObject {
          * @param { Object } agentObj 에이전트 정보
          */
         const changeValue = ( agentObj: Agent, mode: string ) => {
-            
-            let sumPoint = 0;
+
+            const transformed: any = {};
+            const abilityData: Record<string, number> = {};
             const abilityArr: AbilityObj[] = [];
+
             const formElement = document.getElementById("agentAbilityForm") as HTMLFormElement;
             const formData = new FormData(formElement);
-
-            const abilityData: Record<string, number> = {};
 
             formData.forEach((value, key) => {
                 abilityData[key] = Number(value);
@@ -668,6 +668,24 @@ class Section extends DomObject {
 
 
             const validAbilities = agentObj.ability.filter((abilityObj:any) => abilityObj.valid);
+
+            validAbilities.forEach(item => {
+
+                const firstKey = Object.keys(item)[0];
+                const inputValue = abilityData[firstKey];
+                const rest = { 
+                    ...item, 
+                    user: inputValue, 
+                    amount: ( (mode === "normal") ? item.amount : item.endAmount )
+                };
+
+                delete (rest as any)[firstKey]; // 첫 번째 키 제거
+                delete (rest as any).endAmount;
+              
+                transformed[firstKey] = rest as AbilityItem;
+
+            });
+
 
             validAbilities.forEach((abilityObj:any) => {
 
@@ -679,64 +697,10 @@ class Section extends DomObject {
                 
             });
 
-            const transformed: any = {};
+            const resultCalc = divideAgent( agentObj, mode, transformed, abilityArr );
 
-            validAbilities.forEach(item => {
-                const firstKey = Object.keys(item)[0];
-                const inputValue = abilityData[firstKey];
-                const rest = { ...item, user : inputValue };
-                delete (rest as any)[firstKey]; // 첫 번째 키 제거
-              
-                transformed[firstKey] = rest as AbilityItem;
-            });
-
-            switch( agentObj.korName ) {
-                case "의현" :
-                    const agentCalcObj = new CriticalAgentCalc( "유저 입력 스펙" );
-                    const userResultDamage = agentCalcObj.calcCriticalAgentDamage( 
-                        Number(transformed["관입력"].user), 
-                        Number(transformed["치명타 확률"].user), 
-                        Number(transformed["치명타 피해"].user)
-                    );
-                    const amountResultDamage = agentCalcObj.calcCriticalAgentDamage( 
-                        Number( mode === "normal" ? transformed["관입력"].amount : transformed["관입력"].endAmount ), 
-                        Number( mode === "normal" ? transformed["치명타 확률"].amount : transformed["치명타 확률"].endAmount ), 
-                        Number( mode === "normal" ? transformed["치명타 피해"].amount : transformed["치명타 피해"].endAmount )
-                    );
-
-                    let result = Math.floor((userResultDamage / amountResultDamage) * 100);
-
-                    console.log((userResultDamage / amountResultDamage) * 100)
-
-                    document.getElementById("resultPoint")!.innerText = String( result > 100 ? 100 : result );
-                    document.getElementById("progress-bar")!.style.width = `${ result > 100 ? 100 : result }%`;
-
-                    break;
-                default : 
-            }
-
-            return
-
-            abilityArr.forEach( ( abilityList ) => {
-                switch( abilityList.name ) {
-                    case "치명타 확률" :
-                        sumPoint += Number( Math.min( abilityList.user, abilityList.standard ) ) / Number( abilityList.standard );
-                        break;
-                    case "이상 장악력" :
-                        sumPoint += Number( Math.min( abilityList.user, abilityList.standard ) ) / Number( abilityList.standard );
-                        break;
-                    case "충격력" :
-                        sumPoint += Number( Math.min( abilityList.user, abilityList.standard ) ) / Number( abilityList.standard );
-                        break;
-                    default :
-                        sumPoint += Number(abilityList.user) / Number(abilityList.standard);
-                }
-            });
-
-            let result = Math.floor((sumPoint / abilityArr.length) * 100);
-
-            document.getElementById("resultPoint")!.innerText = String( result > 100 ? 100 : result );
-            document.getElementById("progress-bar")!.style.width = `${ result > 100 ? 100 : result }%`;
+            document.getElementById("resultPoint")!.innerText = String( resultCalc > 100 ? 100 : resultCalc );
+            document.getElementById("progress-bar")!.style.width = `${ resultCalc > 100 ? 100 : resultCalc }%`;
 
         }
 
@@ -769,8 +733,10 @@ class Section extends DomObject {
          */
         const chageAgentName = ( agentParam: Agent ) => {
 
-
             const changeAgentMode = ( e: Event ) => {
+
+                document.getElementById("progress-bar")!.style.width = "0";
+                document.getElementById("resultPoint")!.innerText = "0";
 
                 const eventTarget = e.target as HTMLInputElement;
                 const wrapChildren = document.querySelectorAll('.btnWrap > *');

@@ -6,7 +6,7 @@ class CriticalAgentCalc extends Calculate {
     constructor( id: string ) {
         super( id );
     }
-
+    
 
     /**
      * 치명타 에이전트 최종 피해량 계산 메소드
